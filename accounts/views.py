@@ -15,7 +15,6 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request,user)
-            message = f"{request.user} logged in successfully"
             return redirect(reverse('login-view'))
 
         else:

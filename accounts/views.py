@@ -1,7 +1,8 @@
-from django.contrib.auth import login
-from django.shortcuts import render
-from .forms import LoginForm
 
+from django.contrib.auth import login, logout
+from django.shortcuts import redirect, render
+from .forms import LoginForm
+from django.urls import reverse
 
 # Create your views here.
 
@@ -15,6 +16,7 @@ def login_view(request):
             user = form.get_user()
             login(request,user)
             message = f"{request.user} logged in successfully"
+            return redirect(reverse('login-view'))
 
         else:
             message = "Login failed"
@@ -24,3 +26,12 @@ def login_view(request):
         'message' : message
     }
     return render(request,'login.html',context = context)
+
+
+def logout_view(request):
+
+    if request.method == 'POST':
+        logout(request)
+        return redirect(reverse('login-view'))
+
+    return render(request,'logout.html',context={})

@@ -2,5 +2,9 @@
 
 {% block content %}
 
-    <p> Welcome to Fotoblog</p>
+        {% if request.user.is_authenticated %}
+            <p> Welcome to Fotoblog, {{request.user}}.</p> 
+            <a href={% url 'logout-view' %}>Logout</a>
+        {% endif %}
+    
 {% endblock content %}

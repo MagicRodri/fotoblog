@@ -1,7 +1,8 @@
 
+from multiprocessing import context
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm,PpUploadForm
 from django.urls import reverse
 from blog.models import Photo,Post
 # Create your views here.
@@ -59,3 +60,15 @@ def profile_view(request):
     }
 
     return render(request,'accounts/profile.html', context=context)
+
+def upload_pp_view(request):
+    form = PpUploadForm(instance=request.user)
+    if request.method == 'POST':
+        form = PpUploadForm(request.POST,request.FILES,instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('profile-view'))
+    context = {
+        'form' : form
+    }
+    return render(request,'accounts/upload_profile_picture.html',context=context)

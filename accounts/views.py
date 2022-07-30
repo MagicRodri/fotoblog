@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
 from .forms import LoginForm, SignUpForm
 from django.urls import reverse
-
+from blog.models import Photo,Post
 # Create your views here.
 
 def login_view(request):
@@ -48,3 +48,14 @@ def signup_view(request):
             return redirect(reverse('home-view'))
 
     return render(request,'accounts/signup.html',context={'form':form})
+
+
+def profile_view(request):
+    user = request.user
+    photos = Photo.objects.filter(uploader=user)
+    context = {
+        'user' : user,
+        'photos': photos
+    }
+
+    return render(request,'accounts/profile.html', context=context)

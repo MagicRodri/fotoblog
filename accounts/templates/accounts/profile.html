@@ -3,17 +3,28 @@
 {% block content %}
 
         {% if request.user.is_authenticated %}
-            <p> Welcome to Fotoblog, {{request.user}}.</p> 
+            <div>
+                <h1>{{user.username}}</h1> 
+                {% if user.picture %}
+                    <img src="{{user.picture.url}}" alt="{{user.username}}" style=" max-width:100px">
+                {% endif %}
+            </div>
+            
+            <h2>{{user}}'s photos</h2> 
             <div>
                 {% for photo in photos %}
                     <figure>
                         <img src="{{ photo.image.url }}" alt={{ photo.caption }} style=" max-width:300px">
                         <figcaption>{{ photo.caption }} </figcaption>
-                        <p>Uploader:{{photo.uploader}}</p>
                     </figure>
                     
                 {% endfor %}
             </div>
+
+            <div>
+                <a href="#">Edit profile</a>    
+            </div>
+        
         {% endif %}
     
 {% endblock content %}

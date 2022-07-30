@@ -1,7 +1,7 @@
 
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
-from .forms import LoginForm
+from .forms import LoginForm, SignUpForm
 from django.urls import reverse
 
 # Create your views here.
@@ -15,7 +15,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request,user)
-            return redirect(reverse('login-view'))
+            return redirect(reverse('home-view'))
 
         else:
             message = "Login failed"
@@ -24,7 +24,7 @@ def login_view(request):
         'form' : form,
         'message' : message
     }
-    return render(request,'login.html',context = context)
+    return render(request,'accounts/login.html',context = context)
 
 
 def logout_view(request):
@@ -33,4 +33,18 @@ def logout_view(request):
         logout(request)
         return redirect(reverse('login-view'))
 
-    return render(request,'logout.html',context={})
+    return render(request,'accounts/logout.html',context={})
+
+
+def signup_view(request):
+    form = SignUpForm()
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+
+        if form.is_valid():
+            user=form.save()
+            login(request,user)
+            return redirect(reverse('home-view'))
+
+    return render(request,'accounts/signup.html',context={'form':form})

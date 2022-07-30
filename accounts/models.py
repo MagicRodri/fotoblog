@@ -13,7 +13,7 @@ class User(AbstractUser):
         (CREATOR, "Creator"),
         (SUBSCRIBER, "Subscriber")
     ]
-    picture = models.ImageField(upload_to = '',blank = True, null = True)
+    picture = models.ImageField(upload_to = 'users',blank = True, null = True)
     role = models.CharField(max_length=30, choices=ROLE_CHOICES)
 
     def __str__(self):

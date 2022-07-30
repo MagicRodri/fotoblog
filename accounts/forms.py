@@ -14,9 +14,14 @@ class LoginForm(AuthenticationForm):
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username','email','role','picture']
+        fields = ['username','first_name','last_name','email','role','picture']
 
 class PpUploadForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['picture']
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','email','role']

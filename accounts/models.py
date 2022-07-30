@@ -1,14 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from pathlib import Path
-from django.core.files import File
 from django.conf import settings
 
 # Create your models here.
 class User(AbstractUser):
     USER_PICTURES_PATH = 'users'
-    DEFAULT_PICTURE= USER_PICTURES_PATH +  '/' + 'default.jpg'
+    DEFAULT_PICTURE= '/media/' + USER_PICTURES_PATH +  '/' + 'default.jpg'
 
 
     CREATOR = "CREATOR"

@@ -2,7 +2,7 @@
 from multiprocessing import context
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
-from .forms import LoginForm, SignUpForm,PpUploadForm
+from .forms import LoginForm, SignUpForm,PpUploadForm, EditProfileForm
 from django.urls import reverse
 from blog.models import Photo,Post
 # Create your views here.
@@ -72,3 +72,17 @@ def upload_pp_view(request):
         'form' : form
     }
     return render(request,'accounts/upload_profile_picture.html',context=context)
+
+def edit_profile_view(request):
+    user = request.user
+    form = EditProfileForm(instance=user)
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST,instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('profile-view'))
+    context = {
+        'form' : form
+    }
+
+    return render(request,'accounts/edit_profile.html',context=context)

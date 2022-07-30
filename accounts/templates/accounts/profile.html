@@ -7,7 +7,10 @@
                 <h1>{{user.username}}</h1> 
                 {% if user.picture %}
                     <img src="{{user.picture.url}}" alt="{{user.username}}" style=" max-width:100px">
+                {% else %}
+                    <img src="{{user.DEFAULT_PICTURE}}" alt="{{user.username}}" style=" max-width:100px">
                 {% endif %}
+                
             </div>
             
             <h2>{{user}}'s photos</h2> 
@@ -22,8 +25,8 @@
             </div>
 
             <div>
-                <a href="#">Edit profile</a> 
-                <a href={% url 'upload-pp-view' %}>Upload profile</a>    
+                <a href={% url 'edit-profile-view' %}>Edit profile</a> <br>
+                <a href={% url 'upload-pp-view' %}>Upload profile profile</a>    
             </div>
         
         {% endif %}

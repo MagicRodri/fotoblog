@@ -12,6 +12,7 @@
         {% if request.user.is_authenticated %}
             <a href={% url 'logout-view' %}>Logout</a>
             <a href={% url 'upload-photo-view' %}>Upload photo</a>
+            <a href={% url 'create-post-view' %}>Create post</a>
             <a href='{{ request.user.get_absolute_url }}'>Profile</a>
         {% endif %}
     </nav>

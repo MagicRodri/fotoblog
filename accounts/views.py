@@ -1,11 +1,13 @@
 
-from multiprocessing import context
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
 from .forms import LoginForm, SignUpForm,PpUploadForm, EditProfileForm
 from django.urls import reverse
 from blog.models import Photo,Post
+from django.contrib.auth import get_user_model
 # Create your views here.
+
+User = get_user_model()
 
 def login_view(request):
 
@@ -86,3 +88,11 @@ def edit_profile_view(request):
     }
 
     return render(request,'accounts/edit_profile.html',context=context)
+
+def delete_profile_view(request):
+    user = request.user
+    if request.method == 'POST':
+        user.delete()
+        return redirect(reverse('login-view'))
+
+    return render(request,'accounts/delete_profile.html',context={})

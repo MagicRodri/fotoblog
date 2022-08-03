@@ -6,9 +6,11 @@ from .views import (
     profile_view,
     upload_pp_view,
     edit_profile_view,
+    delete_profile_view
 )
 
 urlpatterns = [
+     path('delete_profile',delete_profile_view,name='delete-profile-view'),
     path('edit_profile',edit_profile_view,name='edit-profile-view'),
     path('login/',login_view,name='login-view'),
     path('logout/',logout_view,name='logout-view'),

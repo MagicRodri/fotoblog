@@ -24,6 +24,15 @@
                 {% endfor %}
             </div>
 
+            <h2>{{user}}'s posts</h2> 
+            <div>
+                {% for post in posts %}
+                    <h2>{{post.title}}</h2>
+                    <p>Author: {{post.author}}</p>
+                    <a href={{ post.get_absolute_url }}>Read post</a>
+                {% endfor %}
+            </div>
+
             <div>
                 <a href={% url 'edit-profile-view' %}>Edit profile</a> <br>
                 <a href={% url 'upload-pp-view' %}>Upload profile photo</a>

@@ -1,12 +1,13 @@
 
 from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .forms import UploadPhotoForm, CreatePostForm
 from .models import Photo,Post
 # Create your views here.
 
 @login_required
+@permission_required('blog.add_photo',raise_exception=True)
 def upload_photo_view(request):
 
     form = UploadPhotoForm()

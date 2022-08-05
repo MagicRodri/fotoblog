@@ -23,6 +23,7 @@ def upload_photo_view(request):
     return render(request,'blog/upload_photo.html',context={'form':form})
 
 @login_required
+@permission_required('blog.add_post',raise_exception=True)
 def create_post_view(request):
     user = request.user
     photo_form = UploadPhotoForm()

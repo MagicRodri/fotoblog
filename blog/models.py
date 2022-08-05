@@ -24,8 +24,10 @@ class Photo(models.Model):
 
     def save(self,*args,**kargs):
 
+        if self.image:
+            self.resize_image()
         super().save(*args,**kargs)
-        self.resize_image()
+        
 
 class Post(models.Model):
 

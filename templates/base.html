@@ -12,10 +12,11 @@
         {% if request.user.is_authenticated %}
             <a href={% url 'logout-view' %}>Logout</a>
 
-        {% if perms.blog.add_photo and perms.blog.add_post %}
-            <a href={% url 'upload-photo-view' %}>Upload photo</a>
-            <a href={% url 'create-post-view' %}>Create post</a>
-        {% endif %}
+            {% if perms.blog.add_photo and perms.blog.add_post %}
+                <a href={% url 'upload-photo-view' %}>Upload photo</a>
+                <a href={% url 'create-post-view' %}>Create post</a>
+            {% endif %}
+            <a href={% url 'follows-view' %}>Follow creators</a>
             <a href='{{ request.user.get_absolute_url }}'>Profile</a>
         {% endif %}
     </nav>

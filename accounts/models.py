@@ -19,6 +19,17 @@ class User(AbstractUser):
     ]
     picture = models.ImageField(upload_to = USER_PICTURES_PATH,blank = True, null = True)
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, default = SUBSCRIBER)
+    follows = models.ManyToManyField(
+        'self',
+        limit_choices_to={'role':CREATOR},
+        symmetrical=False
+    )
+
+
+    def add_follows(self,user):
+        qs = self.follows.filter(username = self.username)
+        if not qs.exists():
+            self.follows.add(user)
 
     def __str__(self):
 

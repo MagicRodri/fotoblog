@@ -32,6 +32,14 @@
                     <a href={{ post.get_absolute_url }}>Read post</a>
                 {% endfor %}
             </div>
+            <div>
+                <p>Following:</p>
+                <ul>
+                    {% for follow in user.follows.all %}
+                        <li>{{follow}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
             <div>
                 <a href={% url 'edit-profile-view' %}>Edit profile</a> <br>

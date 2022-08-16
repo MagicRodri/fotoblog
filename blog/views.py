@@ -79,3 +79,33 @@ def follows_view(request):
         return redirect(reverse('follows-view'))
 
     return render(request,'blog/follows.html',context={'creators':creators})
+
+
+def post_edit_view(request,slug = None):
+    user = request.user
+    if slug:
+        try :
+            post = Post.objects.get(slug = slug)
+        except:
+            ...
+    photo_form = UploadPhotoForm(instance= post.photo)
+    post_form = CreatePostForm(instance=post)
+    if request.method == 'POST':
+        photo_form = UploadPhotoForm(request.POST,request.FILES,instance = post.photo)
+        post_form = CreatePostForm(request.POST, instance = post)
+        if all([photo_form.is_valid(),post_form.is_valid()]):
+            photo =  photo_form.save(commit=False)
+            photo.uploader = user
+            photo.save() 
+
+            # Same procedure for the post instance
+            post = post_form.save(commit=False)
+            post.photo = photo
+            photo.author = user
+            post.save()
+
+            return redirect(reverse('home-view'))
+    return render(request, 'blog/edit_post.html',context={
+        'photo_form' : photo_form,
+        'post_form' : post_form
+    })

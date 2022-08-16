@@ -6,6 +6,6 @@
         <p>{{post.content}}</p>
         <a href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }} style=" max-width:300px"></a>
         <p>Author: {{post.author}}</p>
-        <a href='#'>Edit</a>
+        <a href={% url 'post-edit-view' post.slug %}>Edit</a>
     {% endif %}
 {% endblock content %}

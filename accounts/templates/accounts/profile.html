@@ -13,27 +13,21 @@
                 
             </div>
             
-            <h2>{{user}}'s photos</h2> 
+            <h2>Photos</h2> 
             <div>
                 {% for photo in photos %}
-                    <figure>
-                        <img src="{{ photo.image.url }}" alt={{ photo.caption }} style=" max-width:300px">
-                        <figcaption>{{ photo.caption }} </figcaption>
-                    </figure>
-                    
+                    {% include 'blog/partials/photo_snippet.html' %}
                 {% endfor %}
             </div>
 
-            <h2>{{user}}'s posts</h2> 
+            <h2>Posts</h2> 
             <div>
                 {% for post in posts %}
-                    <h2>{{post.title}}</h2>
-                    <p>Author: {{post.author}}</p>
-                    <a href={{ post.get_absolute_url }}>Read post</a>
+                    {% include 'blog/partials/post_snippet.html' %}
                 {% endfor %}
             </div>
             <div>
-                <p>Following:</p>
+                <h2>Following:</h2>
                 <ul>
                     {% for follow in user.follows.all %}
                         <li>{{follow}}</li>

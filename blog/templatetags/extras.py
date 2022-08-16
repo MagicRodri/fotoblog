@@ -22,10 +22,11 @@ def instance_timestamp_display(time):
         time_str = f"at {time.strftime('%H:%M %d %b %Y')}"
     else:
         h = difference.seconds // (60*60)  
+        m = difference.seconds // 60
         if 1 <= h < 24 : # difference within 24h
             time_str = f"{h} hours ago"
-        elif 0 < h // 60 < 60: # difference within 60min
-            time_str = f"{h//60} minutes ago"
+        elif 0 < m < 60: # difference within 60min
+            time_str = f"{m} minutes ago"
         else :
             time_str = f"just now"
 

@@ -8,18 +8,9 @@
             {% for instance in posts_and_photos %}
                 <div>
                     {% if instance|model_type == 'Photo' %}
-                        <figure>
-                            <img src={{ instance.image.url }} alt={{ instance.caption }} style=" max-width:300px">
-                            <figcaption>{{ instance.caption }} </figcaption>
-                            <p>Taken by {% name_display instance.uploader %}</p>
-                            <p>{{instance.timestamp|instance_timestamp_display }}</p>
-                        </figure>
+                       {% include 'blog/partials/photo_snippet.html' with photo=instance %}
                     {% elif instance|model_type == 'Post' %}
-                        <h2>{{instance.title}}</h2>
-                        <img src={{ instance.photo.image.url }} alt={{ instance.photo.caption }} style=" max-width:300px">
-                        <p>Written by {% name_display instance.author %}</p>
-                        <p>{{instance.timestamp|instance_timestamp_display}}</p>
-                        <a href={{ instance.get_absolute_url }}>Read post</a>
+                       {% include 'blog/partials/post_snippet.html' with post=instance %}
                     {% endif %}
                 </div>
             

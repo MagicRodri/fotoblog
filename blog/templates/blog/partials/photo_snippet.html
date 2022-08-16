@@ -1,0 +1,8 @@
+{% load extras %}
+
+<figure>
+    <a href={{ photo.image.url }}><img src={{ photo.image.url }} alt={{ photo.caption }} style=" max-width:300px"></a>
+    <figcaption>{{ photo.caption }} </figcaption>
+    <p>Taken by {% name_display photo.uploader %}</p>
+    <p>{{photo.timestamp|instance_timestamp_display }}</p>
+</figure>

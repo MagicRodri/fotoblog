@@ -1,0 +1,9 @@
+{% load extras %}
+
+<div>
+    <h2>{{post.title}}</h2>
+    <img src={{ post.photo.image.url }} alt={{ post.photo.caption }} style=" max-width:300px">
+    <p>Written by {% name_display post.author %}</p>
+    <p>{{post.timestamp|instance_timestamp_display}}</p>
+    <a href={{ post.get_absolute_url }}>Read post</a>
+</div>

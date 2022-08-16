@@ -1,34 +1,29 @@
 {% extends 'base.html' %}
-
+{% load extras %}
 {% block content %}
 
         {% if request.user.is_authenticated %}
             <h1> Welcome to Fotoblog, {{request.user}}.</h2> 
-            {% if photos %}
-                <div>
-                    {% for photo in photos %}
-                        <figure>
-                            <img src={{ photo.image.url }} alt={{ photo.caption }} style=" max-width:300px">
-                            <figcaption>{{ photo.caption }} </figcaption>
-                            <p>Uploader:{{photo.uploader}}</p>
-                            <p>Uploaded: {{photo.timestamp}}</p>
-                        </figure>
-                        
-                    {% endfor %}
-                </div>
-            {% endif %}
 
-            {% if posts %}
+            {% for instance in posts_and_photos %}
                 <div>
-                    {% for post in posts %}
-                        <h2>{{post.title}}</h2>
-                        <img src={{ post.photo.image.url }} alt={{ post.photo.caption }} style=" max-width:300px">
-                        <p>Author: {{post.author}}</p>
-                        <p>Created: {{post.timestamp}}</p>
-                        <a href={{ post.get_absolute_url }}>Read post</a>
-                    {% endfor %}
+                    {% if instance|model_type == 'Photo' %}
+                        <figure>
+                            <img src={{ instance.image.url }} alt={{ instance.caption }} style=" max-width:300px">
+                            <figcaption>{{ instance.caption }} </figcaption>
+                            <p>Taken by {% name_display instance.uploader %}</p>
+                            <p>{{instance.timestamp|instance_timestamp_display }}</p>
+                        </figure>
+                    {% elif instance|model_type == 'Post' %}
+                        <h2>{{instance.title}}</h2>
+                        <img src={{ instance.photo.image.url }} alt={{ instance.photo.caption }} style=" max-width:300px">
+                        <p>Written by {% name_display instance.author %}</p>
+                        <p>{{instance.timestamp|instance_timestamp_display}}</p>
+                        <a href={{ instance.get_absolute_url }}>Read post</a>
+                    {% endif %}
                 </div>
-            {% endif %}
+            
+            {% endfor %}
             
         {% endif %}
     

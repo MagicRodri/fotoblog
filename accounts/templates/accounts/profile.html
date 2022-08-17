@@ -32,7 +32,7 @@
                     {% for follow in user.follows.all %}
                         <li>
                             {{follow}}
-                            <a href="#">Unfollow</a>
+                            <a href={% url 'unfollow' follow.username %}>Unfollow</a>
                             
                         </li>
                     {% endfor %}

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .forms import UploadPhotoForm, CreatePostForm
 from .models import Photo,Post
 from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 # Create your views here.
 
 User = get_user_model()
@@ -64,8 +65,8 @@ def follows_view(request):
     
     online_user = request.user
     online_user_follows = online_user.follows.all()
+
     #exclude the online user if he is a creator
-    
     creators = User.objects.filter(role = 'CREATOR').exclude(username = online_user.username)
 
     #fetch the non following creators
@@ -75,11 +76,19 @@ def follows_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         creator = get_object_or_404(User,username = username)
-        online_user.add_follows(creator)
+        online_user.add_follow(creator)
         return redirect(reverse('follows-view'))
 
     return render(request,'blog/follows.html',context={'creators':creators})
 
+def unfollow(request,username):
+    try:
+        follow = User.objects.get(username=username)
+        request.user.remove_follow(follow)
+        return redirect(reverse('profile-view'))
+    except:
+        ...
+    return HttpResponse("Unfollow unsuccessful")
 
 def post_edit_view(request,slug = None):
     user = request.user

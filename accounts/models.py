@@ -26,10 +26,15 @@ class User(AbstractUser):
     )
 
 
-    def add_follows(self,user):
-        qs = self.follows.filter(username = self.username)
+    def add_follow(self,user):
+        qs = self.follows.filter(username = user.username)
         if not qs.exists():
             self.follows.add(user)
+            
+    def remove_follow(self,user):
+        qs = self.follows.filter(username = user.username)
+        if qs.exists():
+            self.follows.remove(user)
 
     def __str__(self):
 

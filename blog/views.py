@@ -53,7 +53,7 @@ def create_post_view(request):
         'post_form':post_form
     }
     return render(request,'blog/create_post.html',context=context)
-
+@login_required
 def post_detail_view(request,slug=None):
     post = None
     if slug is not None:
@@ -61,6 +61,7 @@ def post_detail_view(request,slug=None):
 
     return render(request,'blog/post_detail.html',context={'post':post})
 
+@login_required
 def follows_view(request):
     
     online_user = request.user
@@ -81,6 +82,7 @@ def follows_view(request):
 
     return render(request,'blog/follows.html',context={'creators':creators})
 
+@login_required
 def unfollow(request,username):
     try:
         follow = User.objects.get(username=username)
@@ -90,6 +92,8 @@ def unfollow(request,username):
         ...
     return HttpResponse("Unfollow unsuccessful")
 
+@login_required
+@permission_required('blog.change_post',raise_exception=True)
 def post_edit_view(request,slug = None):
     user = request.user
     if slug:

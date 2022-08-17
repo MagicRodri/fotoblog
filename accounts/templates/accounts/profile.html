@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load extras %}
 {% block content %}
 
         {% if request.user.is_authenticated %}
@@ -30,7 +30,11 @@
                 <h2>Following:</h2>
                 <ul>
                     {% for follow in user.follows.all %}
-                        <li>{{follow}}</li>
+                        <li>
+                            {{follow}}
+                            <a href="#">Unfollow</a>
+                            
+                        </li>
                     {% endfor %}
                 </ul>
             </div>

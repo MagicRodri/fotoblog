@@ -57,6 +57,7 @@ def profile_view(request):
     user = request.user
     photos = Photo.objects.filter(uploader=user)
     posts = Post.objects.filter(author=user)
+
     context = {
         'user' : user,
         'photos': photos,

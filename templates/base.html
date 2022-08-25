@@ -6,26 +6,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={% static 'base.css' %}>
+    <link rel="stylesheet" href={% static 'base/base.css' %}>
     <title>Fotoblog</title>
 </head>
 <body>
-
-    <nav>
-        <ul>
-            <li><a href={% url 'home-view' %}>Home</a>  </li>
-            {% if request.user.is_authenticated %}
-                <li><a href={% url 'logout-view' %}>Logout</a></li>
-                {% if perms.blog.add_photo and perms.blog.add_post %}
-                    <li><a href={% url 'upload-photo-view' %}>Upload photo</a></li>
-                    <li><a href={% url 'create-post-view' %}>Create post</a></li>
+    <header>
+        <nav>
+            <ul>
+                <li><a href={% url 'home-view' %}>Home</a>  </li>
+                {% if request.user.is_authenticated %}
+                    <li><a href={% url 'logout-view' %}>Logout</a></li>
+                    {% if perms.blog.add_photo and perms.blog.add_post %}
+                        <li><a href={% url 'upload-photo-view' %}>Upload photo</a></li>
+                        <li><a href={% url 'create-post-view' %}>Create post</a></li>
+                    {% endif %}
+                    <li><a href={% url 'follows-view' %}>Follow creators</a></li>
+                    <li><a href='{{ request.user.get_absolute_url }}'>Profile</a></li>
                 {% endif %}
-                <li><a href={% url 'follows-view' %}>Follow creators</a></li>
-                <li><a href='{{ request.user.get_absolute_url }}'>Profile</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-
+            </ul>
+        </nav>
+    
+    </header>
+    
 
     {% block content %}
         

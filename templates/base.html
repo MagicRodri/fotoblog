@@ -1,24 +1,29 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static 'base.css' %}>
     <title>Fotoblog</title>
 </head>
 <body>
-    <nav>
-        <a href={% url 'home-view' %}>Home</a>        
-        {% if request.user.is_authenticated %}
-            <a href={% url 'logout-view' %}>Logout</a>
 
-            {% if perms.blog.add_photo and perms.blog.add_post %}
-                <a href={% url 'upload-photo-view' %}>Upload photo</a>
-                <a href={% url 'create-post-view' %}>Create post</a>
+    <nav>
+        <ul>
+            <li><a href={% url 'home-view' %}>Home</a>  </li>
+            {% if request.user.is_authenticated %}
+                <li><a href={% url 'logout-view' %}>Logout</a></li>
+                {% if perms.blog.add_photo and perms.blog.add_post %}
+                    <li><a href={% url 'upload-photo-view' %}>Upload photo</a></li>
+                    <li><a href={% url 'create-post-view' %}>Create post</a></li>
+                {% endif %}
+                <li><a href={% url 'follows-view' %}>Follow creators</a></li>
+                <li><a href='{{ request.user.get_absolute_url }}'>Profile</a></li>
             {% endif %}
-            <a href={% url 'follows-view' %}>Follow creators</a>
-            <a href='{{ request.user.get_absolute_url }}'>Profile</a>
-        {% endif %}
+        </ul>
     </nav>
 
 

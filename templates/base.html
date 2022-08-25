@@ -11,19 +11,26 @@
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href={% url 'home-view' %}>Home</a>  </li>
+
+        <nav class="navbar">
+            <a href={% url 'home-view' %} class="nav-branding">RodBlog</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href={% url 'home-view' %}>Home</a>  </li>
                 {% if request.user.is_authenticated %}
-                    <li><a href={% url 'logout-view' %}>Logout</a></li>
+                    <li class="nav-item"><a href={% url 'logout-view' %}>Logout</a></li>
                     {% if perms.blog.add_photo and perms.blog.add_post %}
-                        <li><a href={% url 'upload-photo-view' %}>Upload photo</a></li>
-                        <li><a href={% url 'create-post-view' %}>Create post</a></li>
+                        <li class="nav-item"><a href={% url 'upload-photo-view' %}>Upload photo</a></li>
+                        <li class="nav-item"><a href={% url 'create-post-view' %}>Create post</a></li>
                     {% endif %}
-                    <li><a href={% url 'follows-view' %}>Follow creators</a></li>
-                    <li><a href='{{ request.user.get_absolute_url }}'>Profile</a></li>
+                    <li class="nav-item"><a href={% url 'follows-view' %}>Follow creators</a></li>
+                    <li class="nav-item"><a href='{{ request.user.get_absolute_url }}'>Profile</a></li>
                 {% endif %}
             </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </nav>
     
     </header>
@@ -33,5 +40,5 @@
         
     {% endblock content %}
 
-    
+    <script src={% static 'base/script.js' %} defer></script>
 </body>

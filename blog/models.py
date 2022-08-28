@@ -2,7 +2,13 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.db.models.signals import pre_save,post_save
-from .utils import slugify_instance_title
+
+from .utils import (
+    slugify_instance_title,
+    set_post_change_and_delete_permission,
+    set_photo_change_and_delete_permission
+    )
+
 from PIL import Image
 from django_quill.fields import QuillField
 # Create your models here.
@@ -56,8 +62,15 @@ def post_pre_save(sender,instance,*args,**kargs):
 pre_save.connect(post_pre_save,sender=Post)
 
 def post_post_save(sender,instance,created,*args,**kargs):
-
+    set_post_change_and_delete_permission(instance)
     if created :
         slugify_instance_title(instance,save=True)
 
 post_save.connect(post_post_save,sender=Post)
+
+
+def  photo_post_save(sender,instance,created,*args, **kwargs):
+    set_photo_change_and_delete_permission(instance)
+
+
+post_save.connect(photo_post_save,sender=Photo)

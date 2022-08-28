@@ -1,5 +1,6 @@
 import random
 from django.utils.text import slugify
+from guardian.models import UserObjectPermission
 
 def slugify_instance_title(instance,save=False,new_slug=None):
     if new_slug is not None:
@@ -16,3 +17,17 @@ def slugify_instance_title(instance,save=False,new_slug=None):
     if save : 
         instance.save()
     return instance
+
+def set_post_change_and_delete_permission(post=None):
+    if post is not None:
+        if not post.author.has_perm('change_post', post):
+            UserObjectPermission.objects.assign_perm('change_post', post.author, obj=post)
+        if not post.author.has_perm('delete_post', post):
+            UserObjectPermission.objects.assign_perm('delete_post', post.author, obj=post)
+
+def set_photo_change_and_delete_permission(photo=None):
+    if photo is not None:
+        if not photo.uploader.has_perm('change_photo', photo):
+            UserObjectPermission.objects.assign_perm('change_photo', photo.uploader, obj=photo)
+        if not photo.uploader.has_perm('delete_photo', photo):
+            UserObjectPermission.objects.assign_perm('delete_photo', photo.uploader, obj=photo)

@@ -11,10 +11,3 @@ def set_user_group(user):
     if user.role == 'SUBSCRIBER':
         subscribers = Group.objects.get(name = 'subscribers')
         user.groups.add(subscribers)
-
-def set_photo_permissions(user):
-    pass
-
-
-def set_post_change_permissions(user):
-    pass

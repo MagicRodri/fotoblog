@@ -19,6 +19,7 @@ def slugify_instance_title(instance,save=False,new_slug=None):
     return instance
 
 def set_post_change_and_delete_permission(post=None):
+    # Give post's author change and delete permissions 
     if post is not None:
         if not post.author.has_perm('change_post', post):
             UserObjectPermission.objects.assign_perm('change_post', post.author, obj=post)
@@ -26,6 +27,7 @@ def set_post_change_and_delete_permission(post=None):
             UserObjectPermission.objects.assign_perm('delete_post', post.author, obj=post)
 
 def set_photo_change_and_delete_permission(photo=None):
+    #Give photo's uploader change and delete permissions
     if photo is not None:
         if not photo.uploader.has_perm('change_photo', photo):
             UserObjectPermission.objects.assign_perm('change_photo', photo.uploader, obj=photo)

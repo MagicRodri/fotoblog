@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
-
+{% load guardian_tags %}
 {% block content %}
     {% if post %}
         <h2>{{post.title}}</h2>
         <p>{{post.content.html | safe}}</p>
         <a href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }} style=" max-width:300px"></a>
         <p>Author: {{post.author}}</p>
-        <a href={% url 'post-edit-view' post.slug %}>Edit</a>
+        {% get_obj_perms request.user for post as 'post_perms' %}
+        {% if 'change_post' in post_perms %}
+            <a href={% url 'post-edit-view' post.slug %}>Edit</a>
+        {% endif %}
+
     {% endif %}
 {% endblock content %}

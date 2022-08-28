@@ -16,5 +16,5 @@ def set_photo_permissions(user):
     pass
 
 
-def set_blog_permissions(user):
+def set_post_change_permissions(user):
     pass

@@ -93,7 +93,6 @@ def unfollow(request,username):
     return HttpResponse("Unfollow unsuccessful")
 
 @login_required
-@permission_required('blog.change_post',raise_exception=True)
 def post_edit_view(request,slug = None):
     user = request.user
     if slug:
@@ -101,6 +100,9 @@ def post_edit_view(request,slug = None):
             post = Post.objects.get(slug = slug)
         except:
             ...
+    if not user.has_perm('change_post',post):
+        return HttpResponse('You can not access this page!')
+
     photo_form = UploadPhotoForm(instance= post.photo)
     post_form = CreatePostForm(instance=post)
     if request.method == 'POST':

@@ -5,23 +5,18 @@
     {% if request.user.is_authenticated %}
         {% if creators %}
             {% for creator in creators %}
-                <div>
-                    <div>
+                <section class='creators'>
+                    <article class='creator'>
                         <h1>{{creator.username}}</h1> 
                         {% if creator.picture %}
                             <img src="{{creator.picture.url}}" alt="{{creator.username}}" style=" max-width:100px">
                         {% else %}
                             <img src="{{creator.DEFAULT_PICTURE}}" alt="{{creator.username}}" style=" max-width:100px">
                         {% endif %}
-                    </div>
-                    
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="username" value={{creator.username}}>
-                        <button type="submit">Follow</button>
-                    </form>
+                        <a href = {% url 'follow' creator.username %}>Follow</a>
+                    </article>
                 
-                </div>
+                </section>
             {% endfor %}
         {% else %}
             <p>No available creator to follow!</p>

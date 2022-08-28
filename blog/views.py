@@ -83,6 +83,16 @@ def follows_view(request):
     return render(request,'blog/follows.html',context={'creators':creators})
 
 @login_required
+def follow(request,username):
+    try:
+        follow = User.objects.get(username=username)
+        request.user.add_follow(follow)
+        return redirect(reverse('follows-view'))
+    except:
+        ...
+    return HttpResponse('Following unsuccessful')
+        
+@login_required
 def unfollow(request,username):
     try:
         follow = User.objects.get(username=username)
@@ -90,7 +100,7 @@ def unfollow(request,username):
         return redirect(reverse('profile-view'))
     except:
         ...
-    return HttpResponse("Unfollow unsuccessful")
+    return HttpResponse("Unfollowing unsuccessful")
 
 @login_required
 def post_edit_view(request,slug = None):

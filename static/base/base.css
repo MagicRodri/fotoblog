@@ -1,15 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-html{
+*{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-*, *::after,*::before{
-    box-sizing: inherit;
-    margin: inherit;
-    padding: inherit;
 }
 
 header{
@@ -98,4 +92,9 @@ nav a:hover{
     .nav-menu.active{
         left: 0;
     }
+}
+
+main{
+    display: block;
+    margin: 1rem;
 }

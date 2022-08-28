@@ -34,11 +34,13 @@
         </nav>
     
     </header>
-    
-
-    {% block content %}
+    <main>
+        {% block content %}
         
-    {% endblock content %}
+        {% endblock content %}
+    </main>
+
+   
 
     <script src={% static 'base/script.js' %} defer></script>
 </body>

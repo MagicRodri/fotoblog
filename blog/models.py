@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.db.models.signals import pre_save,post_save
 from .utils import slugify_instance_title
 from PIL import Image
+from django_quill.fields import QuillField
 # Create your models here.
 User = get_user_model()
 
@@ -34,7 +35,7 @@ class Post(models.Model):
     photo = models.ForeignKey(Photo,null=True,blank=True,on_delete=models.SET_NULL)
     title = models.CharField(max_length=128)
     slug = models.SlugField(max_length=128, unique=True,blank=True,null=True)
-    content = models.TextField(blank=True)
+    content = QuillField(blank=True)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 

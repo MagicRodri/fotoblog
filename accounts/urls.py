@@ -15,6 +15,6 @@ urlpatterns = [
     path('login/',login_view,name='login-view'),
     path('logout/',logout_view,name='logout-view'),
     path('upload_pp/',upload_pp_view,name='upload-pp-view'),
-    path('profile/',profile_view,name='profile-view'),
+    path('profile/<str:username>',profile_view,name='profile-view'),
     path('signup/',signup_view,name='signup-view')
 ]

@@ -1,6 +1,6 @@
 
 from django.contrib.auth import login, logout
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render ,get_object_or_404
 from .forms import LoginForm, SignUpForm,PpUploadForm, EditProfileForm
 from django.urls import reverse
 from blog.models import Photo,Post
@@ -17,6 +17,8 @@ def login_view(request):
         form = LoginForm(request,data=request.POST)
         if form.is_valid():
             user = form.get_user()
+            # set user backend to the default to avoid multiple authentication backends conflict
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request,user)
             return redirect(reverse('home-view'))
 
@@ -47,14 +49,16 @@ def signup_view(request):
 
         if form.is_valid():
             user=form.save()
+            # set user backend to the default to avoid multiple authentication backends conflict
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request,user)
             return redirect(reverse('home-view'))
 
     return render(request,'accounts/signup.html',context={'form':form})
 
 
-def profile_view(request):
-    user = request.user
+def profile_view(request,username):
+    user = get_object_or_404(User, username = username)
     photos = Photo.objects.filter(uploader=user)
     posts = Post.objects.filter(author=user)
 
@@ -73,7 +77,7 @@ def upload_pp_view(request):
         form = PpUploadForm(request.POST,request.FILES,instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect(reverse('profile-view'))
+            return redirect(reverse('profile-view',kwargs={'username':request.user.username}))
     context = {
         'form' : form
     }
@@ -86,7 +90,7 @@ def edit_profile_view(request):
         form = EditProfileForm(request.POST,instance=user)
         if form.is_valid():
             form.save()
-            return redirect(reverse('profile-view'))
+            return redirect(reverse('profile-view',kwargs={'username':user.username}))
     context = {
         'form' : form
     }

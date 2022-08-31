@@ -7,7 +7,7 @@
             {% for creator in creators %}
                 <section class='creators'>
                     <article class='creator'>
-                        <h1>{{creator.username}}</h1> 
+                        <a href = {{creator.get_absolute_url}}><h1>{{creator.username}}</h1></a> 
                         {% if creator.picture %}
                             <img src="{{creator.picture.url}}" alt="{{creator.username}}" style=" max-width:100px">
                         {% else %}

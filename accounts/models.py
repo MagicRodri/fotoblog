@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from .utils import set_user_group
+from .utils import set_user_group,set_profile_edit_permission
+from django.db.models.signals import post_save
 
 
 # Create your models here.
@@ -48,5 +49,12 @@ class User(AbstractUser):
 
 
     def get_absolute_url(self):
-        return reverse("profile-view")
+        return reverse("profile-view",kwargs={'username':self.username})
        
+
+def user_post_save(instance,sender,created,*args, **kwargs):
+    
+    if created:
+        set_profile_edit_permission(instance)
+
+post_save.connect(user_post_save,sender=User)

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load extras %}
+{% load guardian_tags %}
 {% block content %}
 
         {% if request.user.is_authenticated %}
@@ -26,22 +27,28 @@
                     {% include 'blog/partials/post_snippet.html' %}
                 {% endfor %}
             </div>
+
+            {% get_obj_perms request.user for user as 'online_user_perms' %}
             <div>
                 <h2>Following:</h2>
                 <ul>
                     {% for follow in user.follows.all %}
                         <li>
-                            {{follow}}
-                            <a href={% url 'unfollow' follow.username %}>Unfollow</a>
-                            
+                            <a href={{ follow.get_absolute_url }}>{{follow}}</a>
+                            {% if 'change_user' in online_user_perms %}
+                                <a href={% url 'unfollow' follow.username %}>Unfollow</a>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
 
             <div>
-                <a href={% url 'edit-profile-view' %}>Edit profile</a> <br>
-                <a href={% url 'upload-pp-view' %}>Upload profile photo</a>
+    
+                {% if 'change_user' in online_user_perms %}
+                    <a href={% url 'edit-profile-view' %}>Edit profile</a> <br>
+                    <a href={% url 'upload-pp-view' %}>Upload profile photo</a>
+                {% endif %}
                 
             </div>
         

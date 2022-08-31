@@ -9,7 +9,7 @@ def model_type(instance):
 
 @register.simple_tag(takes_context=True)
 def name_display(context,user):
-    if user == context['user']:
+    if user == context['request'].user:
         return 'you'
     return user.username
 

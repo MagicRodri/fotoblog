@@ -58,12 +58,12 @@ def signup_view(request):
 
 
 def profile_view(request,username):
-    user = get_object_or_404(User, username = username)
-    photos = Photo.objects.filter(uploader=user)
-    posts = Post.objects.filter(author=user)
+    profile_user = get_object_or_404(User, username = username)
+    photos = Photo.objects.filter(uploader=profile_user)
+    posts = Post.objects.filter(author=profile_user)
 
     context = {
-        'user' : user,
+        'profile_user' : profile_user,
         'photos': photos,
         'posts' : posts
 

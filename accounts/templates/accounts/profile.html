@@ -5,11 +5,11 @@
 
         {% if request.user.is_authenticated %}
             <div>
-                <h1>{{user.username}}</h1> 
-                {% if user.picture %}
-                    <img src="{{user.picture.url}}" alt="{{user.username}}" style=" max-width:100px">
+                <h1>{{profile_user.username}}</h1> 
+                {% if profile_user.picture %}
+                    <img src="{{profile_user.picture.url}}" alt="{{profile_user.username}}" style=" max-width:100px">
                 {% else %}
-                    <img src="{{user.DEFAULT_PICTURE}}" alt="{{user.username}}" style=" max-width:100px">
+                    <img src="{{profile_user.DEFAULT_PICTURE}}" alt="{{profile_user.username}}" style=" max-width:100px">
                 {% endif %}
                 
             </div>
@@ -28,11 +28,11 @@
                 {% endfor %}
             </div>
 
-            {% get_obj_perms request.user for user as 'online_user_perms' %}
+            {% get_obj_perms request.user for profile_user as 'online_user_perms' %}
             <div>
                 <h2>Following:</h2>
                 <ul>
-                    {% for follow in user.follows.all %}
+                    {% for follow in profile_user.follows.all %}
                         <li>
                             <a href={{ follow.get_absolute_url }}>{{follow}}</a>
                             {% if 'change_user' in online_user_perms %}

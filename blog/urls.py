@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import(
+    blog_home_view,
     upload_photo_view,
     create_post_view,
     post_detail_view,
@@ -9,6 +10,7 @@ from .views import(
     post_edit_view
 )
 urlpatterns = [
+    path('',blog_home_view,name='blog-home-view'),
     path('create_post/',create_post_view,name='create-post-view'),
     path('follows/',follows_view,name='follows-view'),
     path('follow/<str:username>',follow,name='follow'),

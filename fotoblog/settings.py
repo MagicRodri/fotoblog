@@ -27,7 +27,7 @@ DEBUG = str(os.environ.get('DEBUG')) == '1'
 
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS += str(os.environ.get('ALLOWED_HOSTS')).split(',')
+    ALLOWED_HOSTS.append(os.environ.get('ALLOWED_HOSTS'))
 
 
 # Application definition

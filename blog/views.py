@@ -6,9 +6,30 @@ from .forms import UploadPhotoForm, CreatePostForm
 from .models import Photo,Post
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
+from django.db.models import Q
+from itertools import chain
 # Create your views here.
 
 User = get_user_model()
+
+
+@login_required
+def blog_home_view(request):
+    user = request.user
+
+    posts_lookup = Q(author__in = user.follows.all()) | Q(author = user)
+    posts = Post.objects.filter(posts_lookup)
+    
+    photos_lookups = Q(uploader__in = user.follows.all()) | Q(uploader = user)
+    photos = Photo.objects.filter(photos_lookups).exclude(post__in = posts)
+    
+    posts_and_photos = sorted(chain(posts,photos),key=lambda instance : instance.timestamp,reverse = True)
+    context = {
+        'posts_and_photos' : posts_and_photos,
+        'photos': photos,
+        'posts' : posts
+    }
+    return render(request,'blog/blog_home.html',context = context)
 
 @login_required
 @permission_required('blog.add_photo',raise_exception=True)

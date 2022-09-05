@@ -13,9 +13,9 @@
     <header>
 
         <nav class="navbar">
-            <a href={% url 'home-view' %} class="nav-branding">RodBlog</a>
+            <a href={% url 'blog-home-view' %} class="nav-branding">RodBlog</a>
             <ul class="nav-menu">
-                <li class="nav-item"><a href={% url 'home-view' %}>Home</a>  </li>
+                <li class="nav-item"><a href={% url 'blog-home-view' %}>Blog</a>  </li>
                 {% if request.user.is_authenticated %}
                     <li class="nav-item"><a href={% url 'logout-view' %}>Logout</a></li>
                     {% if perms.blog.add_photo and perms.blog.add_post %}

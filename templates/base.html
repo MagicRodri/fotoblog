@@ -6,16 +6,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={% static 'base/base.css' %}>
+    <link rel="stylesheet" href={% static 'base/header.css' %}>
+    <link rel="stylesheet" href={% static 'base/home-main.css' %}>
     <title>Fotoblog</title>
+
+    {% block home-style %}
+    
+    {% endblock home-style %}
+    
 </head>
 <body>
     <header>
 
+        <div class='nav-branding'>
+            <a href=""><img src={% static 'base/logo.png' %} alt="Logo"></a>
+        </div>
+
         <nav class="navbar">
-            <a href={% url 'blog-home-view' %} class="nav-branding">RodBlog</a>
+
             <ul class="nav-menu">
-                <li class="nav-item"><a href={% url 'blog-home-view' %}>Blog</a>  </li>
+                <li class="nav-item"><a href={% url 'blog-home-view' %}>Blog</a> </li>
                 {% if request.user.is_authenticated %}
                     <li class="nav-item"><a href={% url 'logout-view' %}>Logout</a></li>
                     {% if perms.blog.add_photo and perms.blog.add_post %}
@@ -26,6 +36,7 @@
                     <li class="nav-item"><a href='{{ request.user.get_absolute_url }}'>Profile</a></li>
                 {% endif %}
             </ul>
+
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>

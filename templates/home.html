@@ -1,12 +1,32 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block home-style %}
- 
-<style>
-    main{
-        background-color: brown;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static 'base/header.css' %}>
+    <link rel="stylesheet" href={% static 'base/home-main.css' %}>
+    <title>Fotoblog</title>
+
+    <style>
+        body{
+            
+    background:url("{% static 'base/background.jpg' %}");
     }
+    </style>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
 
-</style>
+    <main>
+        
+    </main>
 
-{% endblock home-style %}
+   
+
+    <script src={% static 'base/script.js' %} defer></script>
+</body>

@@ -6,26 +6,91 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={% static 'base/header.css' %}>
-    <link rel="stylesheet" href={% static 'base/home-main.css' %}>
+    <link rel="stylesheet" href={% static 'base/header-home.css' %}>
+
+    <script src="https://kit.fontawesome.com/64186733d9.js" crossorigin="anonymous"></script>
+    
     <title>Fotoblog</title>
 
     <style>
         body{
             
-    background:url("{% static 'base/background.jpg' %}");
+    background-image:url("{% static 'base/background.jpg' %}");
+    background-size: cover;
     }
     </style>
 </head>
 <body>
     <header>
         {% include 'header.html' %}
+        </div>
     </header>
 
     <main>
+        <section >
+            <div class="identity">
+                <p>Hello my name is</p>
+                <h1>Rodrigue R. <span>Codo</span></h1>
+                <p>I'm a web developer</p>
+            </div>
+            
+        </section>
+
+        <section >
+            <div class="image">
+                <img src={% static 'base/rodri.jpg' %} alt="">
+            </div>
+            <div class="about">
+                <h1>About me</h1>
+                <h2>Systems control engineer <span>& developer</span></h2>
+                <p>Results-driven junior Django Web Developer, passionate about developing user-friendly software applications. Skilled in Python, JavaScript and Django, excellent problem-solving skills and ability to perform well in a team. Eager to join and help Companies develop their product as a backend or fullstack developer, as well as grow and develop my own skills as a coder.</p>
+            </div>
+        </section>
+
+        <section >
+            <h1>Skills</h1>
+            <div class="skills">
+                
+                <div class="programming">
+                    <i class="fas fa-code"></i>
+                    <h2>Programming</h2>
+                    <ul>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>C/C++</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="web">
+                    <i class="fas fa-globe"></i>
+                    <h2>Web</h2>
+                    <ul>
+                        <li>Django</li>
+                        <li>Html</li>
+                        <li>Css</li>
+                        <li>Bootstrap</li>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <i class="fas fa-list"></i>
+                    <h2>Tools</h2>
+                    <ul>
+                        <li>Git</li>
+                        <li>Github</li>
+                        <li>Linux</li>
+                    </ul>
+                </div>
+            </div>
+            <a class='skill-button' href="#">Read more</a>
+        </section>
         
     </main>
 
+    <footer>
+        <div class="contacts">
+
+        </div>
+    </footer>
    
 
     <script src={% static 'base/script.js' %} defer></script>

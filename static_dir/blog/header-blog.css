@@ -20,12 +20,13 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: steelblue;
     max-height: 4.5rem;
+    background-color:steelblue;
 }
 
 .nav-branding img{
     max-width: 4rem;
+    margin-inline-start: 2rem;
 }
 
 .nav-menu {
@@ -37,6 +38,7 @@ header{
 
 .nav-item a {
     text-decoration: none;
+    text-transform: uppercase;
     color: #edf0f1;
     font-weight: 500;
     font-size: 1.6rem;

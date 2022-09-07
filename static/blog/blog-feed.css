@@ -1,0 +1,57 @@
+main{
+    width: 100vw;
+}
+.post, .post__image{
+    width: 100%;
+}
+.post{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.post__image{
+    grid-row: 1 / 2;
+}
+.post__image img{
+    max-width: 90%;
+}
+
+.post__date, .post__title{
+    text-transform: uppercase;
+}
+
+.post__title{
+    grid-column: 2;
+    font-size: 3rem;
+}
+
+.post a{
+    color: inherit;
+    text-decoration: none;
+}
+
+@media(max-width:40rem){
+    main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .post{
+        display: flex;
+        margin-block-end: 5rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .post__image{
+        text-align: center;
+    }
+
+    .post__detail{
+        font-weight: bold;
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+    }
+}

@@ -8,7 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={% static 'base/header-home.css' %}>
 
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
     <script src="https://kit.fontawesome.com/64186733d9.js" crossorigin="anonymous"></script>
+
+
     
     <title>Fotoblog</title>
 
@@ -87,8 +91,31 @@
     </main>
 
     <footer>
-        <div class="contacts">
-
+        <h1>Get in touch</h1>
+        <div class="contact">
+            <form class="contact__form" action="" method="post">
+                <input type="text" name="name" placeholder="Name">
+                <input type="email" name="email" placeholder="Email">
+                <input type="text" name="message" placeholder="Message">
+                <button type="submit">Send</button>
+            </form>
+            <div class="contact__coordinates">
+                <div>
+                    <i class="uil uil-phone"></i>
+                    <h2>Phone</h2>
+                    <a href="tel:+79649543093">+796495403093</a>
+                </div>
+                <div>
+                    <i class="uil uil-envelope-upload"></i>
+                    <h2>Email</h2>
+                    <a href="mailto:codorol22@gmail.com">codorol22@gmail.com</a>
+                </div>
+                <div>
+                    <i class="uil uil-github"></i>
+                    <h2>Github</h2>
+                    <a href="#">https://github.com/MagicRodri</a>
+                </div>
+            </div>
         </div>
     </footer>
    

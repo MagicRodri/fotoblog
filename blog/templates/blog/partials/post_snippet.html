@@ -1,11 +1,11 @@
 {% load extras %}
 
-<div class="post">
+<article class="post">
     
     <a class="post__image" href={{ post.get_absolute_url }}><img src={{ post.photo.image.url }} alt={{ post.photo.caption }}></a>
     <div class="post__detail">
         <p>By <a href={{ post.author.get_absolute_url }} class="post__author">{% name_display post.author %}</a></p>
         <p class="post__date">{{post.timestamp|instance_timestamp_display}}</p>
+        <h2 class="post__title"><a href={{ post.get_absolute_url }}>{{post.title}}</a></h2>
     </div>
-    <h2 class="post__title"><a href={{ post.get_absolute_url }}>{{post.title}}</a></h2>
-</div>
+</article>

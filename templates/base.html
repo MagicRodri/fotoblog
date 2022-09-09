@@ -24,6 +24,33 @@
     </main>
 
    
+    <script type="text/javascript">
+        document.getElementById("formdata").addEventListener("submit", function(e){
+        e.preventDefault();
+      
+        const content = document.getElementById("id_content").value;
+        const Comments = document.querySelector('.comments');
+        const formData = new FormData();
+      //console.log(name);
+        formData.append('content', content);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        console.log(formData);
+
+        const formPromise = fetch('{{ post.get_absolute_url }}', {
+        method: 'POST',
+        body: formData});
+        formPromise
+        .then((response) => response.json())
+        .then((data) => {
+            const Para = document.createElement('p');
+            Para.textContent = `${data.author}:${data.content}`;
+            Comments.appendChild(Para);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+      });
+    </script>
 
     <script src={% static 'base/script.js' %} defer></script>
 </body>

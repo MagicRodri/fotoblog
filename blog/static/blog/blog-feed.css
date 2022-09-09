@@ -27,6 +27,10 @@ main{
     display: grid;
     grid-template-columns: 90vw;
 }
+
+/*
+    Home feed layout 
+*/
 section,.post, .post__image{
     width: 100%;
 }

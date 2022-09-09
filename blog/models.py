@@ -78,3 +78,13 @@ def  photo_post_save(sender,instance,created,*args, **kwargs):
 
 
 post_save.connect(photo_post_save,sender=Photo)
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    content = models.TextField()
+
+
+    def __str__(self) -> str:
+        return f'{self.author.username}:{self.content}'

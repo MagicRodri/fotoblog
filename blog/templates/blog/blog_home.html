@@ -3,7 +3,6 @@
 {% block content %}
 
         {% if request.user.is_authenticated %}
-            <h1> Welcome to Fotoblog, {{request.user}}.</h2> 
 
             {% for instance in posts_and_photos %}
                 {% if instance|model_type == 'Photo' %}

@@ -14,7 +14,7 @@
                 <li class="nav-item"><a href={% url 'create-post-view' %}>Create post</a></li>
             {% endif %}
             <li class="nav-item"><a href={% url 'follows-view' %}>Follow creators</a></li>
-            <li class="nav-item"><a href='{{ request.user.get_absolute_url }}'>Profile</a></li>
+            <li class="nav-item"><a href='{{ request.user.get_absolute_url }}'>{{request.user.username}}</a></li>
         {% endif %}
     </ul>
 

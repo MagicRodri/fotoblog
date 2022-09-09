@@ -4,8 +4,15 @@
     
     <a class="post__image" href={{ post.get_absolute_url }}><img src={{ post.photo.image.url }} alt={{ post.photo.caption }}></a>
     <div class="post__detail">
-        <p>By <a href={{ post.author.get_absolute_url }} class="post__author">{% name_display post.author %}</a></p>
-        <p class="post__date">{{post.timestamp|instance_timestamp_display}}</p>
-        <h2 class="post__title"><a href={{ post.get_absolute_url }}>{{post.title}}</a></h2>
+        <p class="bold">by <a class='bold' href={{ post.author.get_absolute_url }} class="post__author">{% name_display post.author %}</a></p>
+        <div>
+            <p class="post__date f-akira bold">{{post.timestamp|instance_timestamp_display}}</p>
+            <p class="post__time">{{post.words_count|read_time}}min read</p>
+        </div>
+        
+        {% if post.summary %}
+            <p class="post__summary large">{{ post.summary }}</p>
+        {% endif %}
+        <h2 class="post__title f-akira bold xx-large"><a href={{ post.get_absolute_url }}>{{post.title}}</a></h2>
     </div>
 </article>

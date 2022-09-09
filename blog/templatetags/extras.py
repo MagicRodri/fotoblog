@@ -31,3 +31,7 @@ def instance_timestamp_display(time):
             time_str = f"just now"
 
     return time_str
+
+@register.filter
+def read_time(words_count):
+    return round(words_count/ 120) + 1

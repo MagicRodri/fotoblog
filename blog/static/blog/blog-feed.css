@@ -1,8 +1,28 @@
 
 @import url('http://fonts.cdnfonts.com/css/akira-expanded');
 
+.bold{
+    font-weight: bold;
+}
+
+.large{
+    font-size: large;
+}
+
+.x-large{
+    font-size: x-large;
+}
+
+.xx-large{
+    font-size: xx-large;
+}
+
+.f-akira{
+    font-family: 'Akira Expanded', sans-serif;
+}
 
 main{
+    margin-block-start: 2rem;
     width: 100vw;
     display: grid;
     grid-template-columns: 90vw;
@@ -32,13 +52,17 @@ section,.post, .post__image{
     text-transform: uppercase;
 }
 
-.post__date{
+.post__detail div{
     order: 1;
+    display: flex;
+    gap: 4rem;
 }
-.post__title{
-    font-family: 'Akira Expanded', sans-serif;
-    font-size: 3.5rem;
+
+.post__time{
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
 }
+
 
 .post a{
     color: inherit;
@@ -70,15 +94,23 @@ section,.post, .post__image{
     }
 
     .post__detail{
-        font-weight: bold;
         width: 90%;
         display: grid;
         gap: 1rem;
         grid-template-columns: repeat(2,50%);
         grid-template-rows: minmax(2rem,auto);
     }
+
+    .post__detail div{
+        justify-content: space-between;
+    }
     .post__title{
         grid-column: 1 / 3;
         grid-row: 2;
+    }
+    .post__summary{
+        grid-column: 1 / 3;
+        grid-row: 3;
+        line-height: 120%;
     }
 }

@@ -5,6 +5,7 @@ from django.db.models.signals import pre_save,post_save
 
 from .utils import (
     slugify_instance_title,
+    set_words_count,
     set_post_change_and_delete_permission,
     set_photo_change_and_delete_permission
     )
@@ -40,8 +41,10 @@ class Post(models.Model):
 
     photo = models.ForeignKey(Photo,null=True,blank=True,on_delete=models.SET_NULL)
     title = models.CharField(max_length=128)
+    summary = models.TextField(blank=True)
     slug = models.SlugField(max_length=128, unique=True,blank=True,null=True)
     content = QuillField(blank=True)
+    words_count = models.IntegerField(blank=True ,null=True )
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -56,6 +59,7 @@ class Post(models.Model):
         super().save(*args,**kargs)
     
 def post_pre_save(sender,instance,*args,**kargs):
+    set_words_count(instance)
     if instance.slug is None:
         slugify_instance_title(instance,save=False)
 

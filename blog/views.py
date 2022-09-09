@@ -31,21 +31,21 @@ def blog_home_view(request):
     }
     return render(request,'blog/blog_home.html',context = context)
 
-@login_required
-@permission_required('blog.add_photo',raise_exception=True)
-def upload_photo_view(request):
+# @login_required
+# @permission_required('blog.add_photo',raise_exception=True)
+# def upload_photo_view(request):
 
-    form = UploadPhotoForm()
-    if request.method == 'POST':
-        form = UploadPhotoForm(request.POST,request.FILES)
+#     form = UploadPhotoForm()
+#     if request.method == 'POST':
+#         form = UploadPhotoForm(request.POST,request.FILES)
 
-        if form.is_valid():
-            photo=form.save(commit=False)
-            photo.uploader = request.user
-            photo.save()
-            return redirect(reverse('home-view'))
+#         if form.is_valid():
+#             photo=form.save(commit=False)
+#             photo.uploader = request.user
+#             photo.save()
+#             return redirect(reverse('home-view'))
 
-    return render(request,'blog/upload_photo.html',context={'form':form})
+#     return render(request,'blog/upload_photo.html',context={'form':form})
 
 @login_required
 @permission_required('blog.add_post',raise_exception=True)

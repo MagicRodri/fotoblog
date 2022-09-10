@@ -16,12 +16,45 @@
             <button type="submit">Comment</button>
         </form>
         
-        {% if comments %}
-            <div class="comments">
-                {% for comment in comments %}
-                    <p>{{ comment.author }} : {{comment.content}}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+        <div class="comments">
+            {% for comment in comments %}
+                <p>{{ comment.author }} : {{comment.content}}</p>
+            {% endfor %}
+        </div>
     {% endif %}
 {% endblock content %}
+
+{% block script %}
+
+    <script type="text/javascript">
+        const commentForm = document.getElementById('formdata');
+
+        commentForm.addEventListener("submit", function(e){
+        e.preventDefault();
+    
+        const content = document.getElementById("id_content").value;
+        const Comments = document.querySelector('.comments');
+
+        const formData = new FormData(commentForm);
+    //console.log(name);
+        // formData.append('content', content);
+        // formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        // console.log(formData);
+
+        fetch('{{ post.get_absolute_url }}', {
+        method: 'POST',
+        body: formData})
+        .then((response) => response.json())
+        .then((data) => {
+            const comment = document.createElement('p');
+            comment.textContent = `${data.username} : ${data.content}`;
+            Comments.appendChild(comment);
+            // console.log(data.content);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    </script>
+
+{% endblock script %}

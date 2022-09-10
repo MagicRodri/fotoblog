@@ -95,6 +95,9 @@ def post_detail_view(request,slug=None):
         comment.author = request.user
         comment.post = context.get('post')
         comment.save()
+        
+        data['username'] = request.user.username
+        data['content'] = comment.content
 
         return JsonResponse(data=data  , safe=False)
         # return redirect(comment.post.get_absolute_url())

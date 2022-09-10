@@ -3,11 +3,10 @@
 {% block content %}
 
         {% if request.user.is_authenticated %}
-            <h1> Welcome to Fotoblog, {{request.user}}.</h2> 
 
             {% for instance in posts_and_photos %}
                 {% if instance|model_type == 'Photo' %}
-                    {% include 'blog/partials/photo_snippet.html' with photo=instance %}
+                    
                 {% elif instance|model_type == 'Post' %}
                     {% include 'blog/partials/post_snippet.html' with post=instance %}
                 {% endif %}

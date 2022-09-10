@@ -3,13 +3,58 @@
 {% block content %}
     {% if post %}
         <h2>{{post.title}}</h2>
-        <p>{{post.content.html | safe}}</p>
+        {{post.content.html | safe}}
         <a href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }} style=" max-width:300px"></a>
         <p>Author: {{post.author}}</p>
         {% get_obj_perms request.user for post as 'post_perms' %}
         {% if 'change_post' in post_perms %}
             <a href={% url 'post-edit-view' post.slug %}>Edit</a>
         {% endif %}
-
+        <form id='formdata' action="" method="post">
+            {% csrf_token %}
+            {{comment_form.as_p}}
+            <button type="submit">Comment</button>
+        </form>
+        
+        <div class="comments">
+            {% for comment in comments %}
+                <p>{{ comment.author }} : {{comment.content}}</p>
+            {% endfor %}
+        </div>
     {% endif %}
 {% endblock content %}
+
+{% block script %}
+
+    <script type="text/javascript">
+        const commentForm = document.getElementById('formdata');
+
+        commentForm.addEventListener("submit", function(e){
+        e.preventDefault();
+    
+        const content = document.getElementById("id_content").value;
+        const Comments = document.querySelector('.comments');
+
+        const formData = new FormData(commentForm);
+    //console.log(name);
+        // formData.append('content', content);
+        // formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        // console.log(formData);
+
+        fetch('{{ post.get_absolute_url }}', {
+        method: 'POST',
+        body: formData})
+        .then((response) => response.json())
+        .then((data) => {
+            const comment = document.createElement('p');
+            comment.textContent = `${data.username} : ${data.content}`;
+            Comments.appendChild(comment);
+            // console.log(data.content);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    </script>
+
+{% endblock script %}

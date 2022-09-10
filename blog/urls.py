@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import(
     blog_home_view,
-    upload_photo_view,
     create_post_view,
     post_detail_view,
     follows_view,
@@ -17,5 +16,4 @@ urlpatterns = [
     path('post_detail/<slug:slug>/',post_detail_view,name='post-detail-view'),
     path('post_edit/<slug:slug>/',post_edit_view,name='post-edit-view'),
     path('unfollow/<str:username>',unfollow,name='unfollow'),
-    path('upload/',upload_photo_view,name='upload-photo-view')
 ]

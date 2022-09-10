@@ -19,7 +19,7 @@ def instance_timestamp_display(time):
     difference = current_time - time # datetime.timedelta
     time_str = ''
     if difference.days > 0: # difference > 24h
-        time_str = f"{time.strftime('%H:%M %d %b %Y')}"
+        time_str = f"{time.strftime('%d %b %Y')}"
     else:
         h = difference.seconds // (60*60)  
         m = difference.seconds // 60
@@ -31,3 +31,7 @@ def instance_timestamp_display(time):
             time_str = f"just now"
 
     return time_str
+
+@register.filter
+def read_time(words_count):
+    return round(words_count/ 120) + 1

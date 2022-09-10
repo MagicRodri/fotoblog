@@ -18,6 +18,11 @@ def slugify_instance_title(instance,save=False,new_slug=None):
         instance.save()
     return instance
 
+def set_words_count(instance):
+    
+    content_text = instance.content.plain
+    instance.words_count = len(content_text.split())
+
 def set_post_change_and_delete_permission(post=None):
     # Give post's author change and delete permissions 
     if post is not None:

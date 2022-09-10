@@ -1,13 +1,15 @@
 
+from multiprocessing import context
 from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import UploadPhotoForm, CreatePostForm
-from .models import Photo,Post
+from .forms import UploadPhotoForm, CreatePostForm , CommentForm
+from .models import Photo,Post,Comment
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse
+from django.http import HttpResponse , JsonResponse
 from django.db.models import Q
 from itertools import chain
+import json
 # Create your views here.
 
 User = get_user_model()
@@ -31,21 +33,21 @@ def blog_home_view(request):
     }
     return render(request,'blog/blog_home.html',context = context)
 
-@login_required
-@permission_required('blog.add_photo',raise_exception=True)
-def upload_photo_view(request):
+# @login_required
+# @permission_required('blog.add_photo',raise_exception=True)
+# def upload_photo_view(request):
 
-    form = UploadPhotoForm()
-    if request.method == 'POST':
-        form = UploadPhotoForm(request.POST,request.FILES)
+#     form = UploadPhotoForm()
+#     if request.method == 'POST':
+#         form = UploadPhotoForm(request.POST,request.FILES)
 
-        if form.is_valid():
-            photo=form.save(commit=False)
-            photo.uploader = request.user
-            photo.save()
-            return redirect(reverse('home-view'))
+#         if form.is_valid():
+#             photo=form.save(commit=False)
+#             photo.uploader = request.user
+#             photo.save()
+#             return redirect(reverse('home-view'))
 
-    return render(request,'blog/upload_photo.html',context={'form':form})
+#     return render(request,'blog/upload_photo.html',context={'form':form})
 
 @login_required
 @permission_required('blog.add_post',raise_exception=True)
@@ -77,10 +79,31 @@ def create_post_view(request):
 @login_required
 def post_detail_view(request,slug=None):
     post = None
+    data = {}
+    context = {}
+    comment_form = CommentForm()
+
     if slug is not None:
         post = get_object_or_404(Post,slug=slug)
+        context['post']=post
+        comments = Comment.objects.filter(post = post)
+        context['comments'] = comments
 
-    return render(request,'blog/post_detail.html',context={'post':post})
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        comment = comment_form.save(commit=False)
+        comment.author = request.user
+        comment.post = context.get('post')
+        comment.save()
+        
+        data['username'] = request.user.username
+        data['content'] = comment.content
+
+        return JsonResponse(data=data  , safe=False)
+        # return redirect(comment.post.get_absolute_url())
+
+    context['comment_form'] = comment_form
+    return render(request,'blog/post_detail.html',context=context)
 
 @login_required
 def follows_view(request):

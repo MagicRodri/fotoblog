@@ -1,15 +1,24 @@
 {% extends 'base.html' %}
 {% load guardian_tags %}
+
+{% block css %}
+
+{% endblock css %}
+
+
 {% block content %}
     {% if post %}
         <h2>{{post.title}}</h2>
         {{post.content.html | safe}}
         <a href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }} style=" max-width:300px"></a>
         <p>Author: {{post.author}}</p>
+
         {% get_obj_perms request.user for post as 'post_perms' %}
+
         {% if 'change_post' in post_perms %}
             <a href={% url 'post-edit-view' post.slug %}>Edit</a>
         {% endif %}
+
         <form id='formdata' action="" method="post">
             {% csrf_token %}
             {{comment_form.as_p}}
@@ -32,7 +41,7 @@
         commentForm.addEventListener("submit", function(e){
         e.preventDefault();
     
-        const content = document.getElementById("id_content").value;
+        const content = document.getElementById("id_content");
         const Comments = document.querySelector('.comments');
 
         const formData = new FormData(commentForm);
@@ -50,6 +59,7 @@
             comment.textContent = `${data.username} : ${data.content}`;
             Comments.appendChild(comment);
             // console.log(data.content);
+            content.textContent = '';
         })
         .catch(error => {
             console.error('Error:', error);

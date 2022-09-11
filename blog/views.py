@@ -99,7 +99,7 @@ def post_detail_view(request,slug=None):
         data['username'] = request.user.username
         data['content'] = comment.content
 
-        return JsonResponse(data=data  , safe=False)
+        return JsonResponse(data=data)
         # return redirect(comment.post.get_absolute_url())
 
     context['comment_form'] = comment_form

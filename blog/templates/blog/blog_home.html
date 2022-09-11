@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% load extras %}
+{% load static %}
+
+{% block css %}
+
+    <link rel="stylesheet" href={% static 'blog/css/blog-feed.css' %}>
+
+{% endblock css %}
+
+
 {% block content %}
 
         {% if request.user.is_authenticated %}

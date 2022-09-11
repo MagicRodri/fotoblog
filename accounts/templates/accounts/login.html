@@ -1,18 +1,38 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
+{% block css %}
+    <link rel="stylesheet" href={% static 'accounts/css/login.css' %}>
+{% endblock css %}
+
+{% block login %}
     {% if not request.user.is_authenticated %}
-        {% if message %}
-            <p>{{message}}</p>
-        {% endif %}
+        <h1>Login</h1>
         <form action="" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form.non_field_errors }}
+
+            <div class="form__field username">
+                {{ form.username.errors }}
+                
+                {{ form.username }}
+                <span></span>
+                <label for="{{ form.username.id_for_label }}">Username</label>
+            </div>
+
+            <div class="form__field password">
+                {{ form.password.errors }}
+
+                {{ form.password }}
+                <span></span>
+                <label for="{{ form.password.id_for_label }}">Password</label>
+            </div>
             <button type="submit">Login</button>
         </form>
-        <p>Don't have an account? <a href={% url 'signup-view' %}>Sign up<a/></p>
+        <a href="#" class="pass">Forgot password?</a>
+        <p class="signup_link">Don't have an account? <a href={% url 'signup-view' %}>Sign up<a/></p>
     {% else %}
         <p>You are already logged in. Do you wanna <a href={% url 'logout-view' %}>logout</a>?</p>
     {% endif %}
     
-{% endblock content %}
+{% endblock login %}

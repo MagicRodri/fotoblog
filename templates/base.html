@@ -18,6 +18,11 @@
         {% include 'header.html' %}
     </header>
 
+    <div class="wrapper">
+        {% block login %}
+    
+        {% endblock login %}    
+    </div>
     <main>
         <section>
             {% block content %}

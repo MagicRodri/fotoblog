@@ -10,6 +10,14 @@ class LoginForm(AuthenticationForm):
     class Meta:
         model = User
         fields = '__all__'
+        widgets = {
+            'username' : forms.TextInput(attrs={
+                'class' : 'username_field',
+            }),
+            'password':forms.PasswordInput(attrs={
+                'class' : 'password_field',
+            })
+        }
 
 
 class SignUpForm(UserCreationForm):

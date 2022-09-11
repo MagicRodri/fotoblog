@@ -23,7 +23,7 @@ class LoginForm(AuthenticationForm):
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email','role','picture']
+        fields = ['username','first_name','last_name','email','role']
 
 class PpUploadForm(forms.ModelForm):
     class Meta:

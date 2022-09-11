@@ -3,6 +3,7 @@
 :root{
     font-size: 10px;
     --blog-blue-1 : #2691d9;
+    --blog-blue-2 : #094064;
 
     --blog-white-1 : #edf0f1;
 }
@@ -23,13 +24,13 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 3rem;
     max-height: 4.5rem;
     background-color: var(--blog-blue-1);
 }
 
 .nav-branding img{
     max-width: 4rem;
-    margin-inline-start: 2rem;
 }
 
 .nav-menu {
@@ -37,7 +38,6 @@ header{
     display: flex;
     justify-content: space-between;
     gap: 8px;
-    margin-inline-end: 3rem;
 }
 
 .nav-item a {
@@ -50,7 +50,7 @@ header{
 }
 
 .nav-item a:hover {
-    color: var(--blog-blue-1);
+    color: var(--blog-blue-2);
 }
 
 .hamburger{

@@ -1,14 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
+{% block css %}
+    <link rel="stylesheet" href={% static 'accounts/css/login-signgin.css' %}>
+{% endblock css %}
+
+{% block login %}
 
     {% if not request.user.is_authenticated %}
         <form action="" method="post">
             {% csrf_token %}
-            {{form.as_p}}
+
+            <div class="form__field username">
+                {{ form.username.errors }}
+                
+                {{ form.username }}
+                <span></span>
+                <label for="{{ form.username.id_for_label }}">Username*</label>
+            </div>
+
+            <div class="form__field username">
+                {{ form.first_name.errors }}
+                
+                {{ form.first_name }}
+                <span></span>
+                <label for="{{ form.first_name.id_for_label }}">First name</label>
+            </div>
+
+            <div class="form__field username">
+                {{ form.last_name.errors }}
+                
+                {{ form.last_name }}
+                <span></span>
+                <label for="{{ form.last_name.id_for_label }}">Last name</label>
+            </div>
+
+            <div class="form__field ">
+                {{ form.email.errors }}
+                
+                {{ form.email }}
+                <span></span>
+                <label for="{{ form.email.id_for_label }}">Email</label>
+            </div>
+
+            <div class="form__field ">
+                
+                {{ form.role }}
+                <span></span>
+                <label id='role-label' for="{{ form.role.id_for_label }}">Role</label>
+            </div>
+
+            <div class="form__field ">
+                {{ form.password1.errors }}
+                
+                {{ form.password1 }}
+                <span></span>
+                <label for="{{ form.password1.id_for_label }}">Password*</label>
+            </div>
+
+            <div class="form__field ">
+                {{ form.password2.errors }}
+                
+                {{ form.password2 }}
+                <span></span>
+                <label for="{{ form.password2.id_for_label }}">Confirm password*</label>
+            </div>
+
+
             <button type="submit">Register</button>
         </form>
+        <p class="signup_link">Already have an account? <a href={% url 'login-view' %}>Login<a/></p>
     {% else %}
         <p>You are already signed in. Do you wanna <a href={% url 'logout-view' %}>logout</a>?</p>
     {% endif %}
-{% endblock content %}
+{% endblock login %}

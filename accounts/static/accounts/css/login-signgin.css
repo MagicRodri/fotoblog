@@ -22,7 +22,6 @@ body{
 }
 
 .wrapper{
-    margin: 2rem 0;
     align-self: center;
     background-color: var(--blog-white-1);
     width: 30vw;
@@ -45,7 +44,7 @@ body{
     margin: 3rem 0;
 }
 
-.form__field input{
+.form__field input, .form__field select{
     background-color: var(--blog-white-1);
     width: 100%;
     padding: 0 5px;
@@ -53,6 +52,11 @@ body{
     border: none;
     outline: none;
 }
+
+/* .form__field select{
+
+    padding-right: 50px;
+} */
 
 .form__field label{
    position: absolute;
@@ -74,14 +78,12 @@ body{
     transition: 0.5s;
 }
 
-.form__field input:focus ~ label,
-.form__field input:valid ~ label{
+.form__field input:focus ~ label{
     transform: translateY(-100%);
     color: var(--blog-blue-1);
 }
 
-.form__field input:focus ~ span::before,
-.form__field input:valid ~ span::before{
+.form__field input:focus ~ span::before{
     width: 100%;
 }
 
@@ -106,7 +108,7 @@ button[type="submit"]{
     background: var(--blog-blue-1);
     border-radius: 2.5rem;
     font-size: 1.8rem;
-    color: #e9f4fb;
+    color: var(--blog-white-1);
     cursor: pointer;
     outline: none;
 }
@@ -130,7 +132,6 @@ button[type="submit"]:hover{
 .signup_link a:hover{
     text-decoration: underline;
 }
-
 
 @media (max-width:50rem){
     .wrapper{

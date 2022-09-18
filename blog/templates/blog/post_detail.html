@@ -38,14 +38,33 @@
     <script type="text/javascript">
         const commentForm = document.getElementById('formdata');
 
-        commentForm.addEventListener("submit", function(e){
-        e.preventDefault();
-    
         const content = document.getElementById("id_content");
         const Comments = document.querySelector('.comments');
 
+
+        const url = `ws://${window.location.host}{{ post.get_absolute_url }}ws/socket-server/`;
+
+        const commentSocket = new WebSocket(url);
+
+        commentSocket.onmessage = function(e){
+            let data = JSON.parse(e.data);
+            console.log('Data:',data);
+
+            if(data.type === 'comment'){
+                const comment = document.createElement('p');
+                comment.textContent = data.message;
+                Comments.appendChild(comment);
+                commentForm.reset()
+                
+        }
+    }
+
+
+    commentForm.addEventListener("submit", function(e){
+        e.preventDefault();
+
         const formData = new FormData(commentForm);
-    //console.log(name);
+    
         // formData.append('content', content);
         // formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
         // console.log(formData);
@@ -53,13 +72,14 @@
         fetch('{{ post.get_absolute_url }}', {
         method: 'POST',
         body: formData})
-        .then((response) => response.json())
+        .then((response) => {
+            return response.json()
+        })
         .then((data) => {
-            const comment = document.createElement('p');
-            comment.textContent = `${data.username} : ${data.content}`;
-            Comments.appendChild(comment);
-            // console.log(data.content);
+            
+            commentSocket.send(JSON.stringify(data));
             content.textContent = '';
+
         })
         .catch(error => {
             console.error('Error:', error);

@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load guardian_tags %}
-
+{% load crispy_forms_tags %}
 {% block css %}
 
 {% endblock css %}
 
 
 {% block content %}
-    {% if post %}
+    <article class="container">
+        {% if post %}
         <h2>{{post.title}}</h2>
         {{post.content.html | safe}}
         <a href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }} style=" max-width:300px"></a>
@@ -21,8 +22,8 @@
 
         <form id='formdata' action="" method="post">
             {% csrf_token %}
-            {{comment_form.as_p}}
-            <button type="submit">Comment</button>
+            {{comment_form|crispy}}
+            <button class='btn btn-success' type="submit">Comment</button>
         </form>
         
         <div class="comments">
@@ -31,8 +32,11 @@
             {% endfor %}
         </div>
     {% endif %}
+
+    </article>
 {% endblock content %}
 
+    
 {% block script %}
 
     <script type="text/javascript">

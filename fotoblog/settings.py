@@ -45,11 +45,16 @@ INSTALLED_APPS = [
     #third-party
     'django_quill',
     'guardian',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
 
     'accounts',
     'blog'
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ASGI_APPLICATION = 'fotoblog.asgi.application'
 

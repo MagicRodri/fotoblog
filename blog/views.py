@@ -1,5 +1,4 @@
 
-from multiprocessing import context
 from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
@@ -69,7 +68,7 @@ def create_post_view(request):
             post.author = user
             post.save()
 
-            return redirect(reverse('home-view'))
+            return redirect(reverse('blog-home-view'))
 
     context = {
         'photo_form':photo_form,
@@ -173,7 +172,7 @@ def post_edit_view(request,slug = None):
             photo.author = user
             post.save()
 
-            return redirect(reverse('home-view'))
+            return redirect(reverse('blog-home-view'))
     return render(request, 'blog/edit_post.html',context={
         'photo_form' : photo_form,
         'post_form' : post_form

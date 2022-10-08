@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    {% if request.user.is_authenticated %}
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{photo_form.as_p}}
-            {{post_form.media}}
-            {{post_form.as_p}}
-            <input type="submit" value="Create">
-        </form>
-    {% endif %}
+    <section class="container">
+        {% if request.user.is_authenticated %}
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{photo_form|crispy}}
+                {{post_form.media}}
+                {{post_form|crispy}}
+                <input type="submit" value="Create">
+            </form>
+        {% endif %}
+    </section>
+
 {% endblock content %}

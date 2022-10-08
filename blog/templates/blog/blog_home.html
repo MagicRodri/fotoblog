@@ -8,20 +8,22 @@
 
 {% endblock css %}
 
+    {% block content %}
+        <article>
+            {% if request.user.is_authenticated %}
 
-{% block content %}
+                {% for instance in posts_and_photos %}
+                    {% if instance|model_type == 'Photo' %}
+                        
+                    {% elif instance|model_type == 'Post' %}
+                        {% include 'blog/partials/post_snippet.html' with post=instance %}
+                    {% endif %}
 
-        {% if request.user.is_authenticated %}
-
-            {% for instance in posts_and_photos %}
-                {% if instance|model_type == 'Photo' %}
+                
+                {% endfor %}
                     
-                {% elif instance|model_type == 'Post' %}
-                    {% include 'blog/partials/post_snippet.html' with post=instance %}
-                {% endif %}
+            {% endif %}
+        </article>
+        
+    {% endblock content %}
 
-            
-            {% endfor %}
-            
-        {% endif %}
-{% endblock content %}

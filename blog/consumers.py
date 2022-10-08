@@ -23,19 +23,23 @@ class CommentConsumer(websocket.WebsocketConsumer):
 
     def receive(self, text_data=None, bytes_data=None):
         text_data_json = json.loads(text_data)
-        message = f"{text_data_json['username']} : {text_data_json['content']}"
+        username = text_data_json['username']
+        message = text_data_json['content']
 
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type' : 'comment_message',
-                'message' : message
+                'message' : message,
+                'username' : username
             }
         )
 
     def comment_message(self,event):
         message = event['message']
+        username = event['username']
         self.send(text_data=json.dumps({
             'type' : 'comment',
-            'message' : message
+            'message' : message,
+            'username' : username
         }))

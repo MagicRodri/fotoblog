@@ -1,39 +1,95 @@
 {% extends 'base.html' %}
 {% load guardian_tags %}
 {% load crispy_forms_tags %}
+
 {% block css %}
 
 {% endblock css %}
 
 
 {% block content %}
-    <article class="container">
+    <section class="container">
         {% if post %}
-        <h2>{{post.title}}</h2>
-        {{post.content.html | safe}}
-        <a href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }} style=" max-width:300px"></a>
-        <p>Author: {{post.author}}</p>
+            <h2>{{post.title}}</h2>
+            {{post.content.html | safe}}
+            <a class="img-fluid" href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }}></a>
+            <p>Author: {{post.author}}</p>
 
-        {% get_obj_perms request.user for post as 'post_perms' %}
+            {% get_obj_perms request.user for post as 'post_perms' %}
 
-        {% if 'change_post' in post_perms %}
-            <a href={% url 'post-edit-view' post.slug %}>Edit</a>
+            {% if 'change_post' in post_perms %}
+                <a href={% url 'post-edit-view' post.slug %}>Edit</a>
+            {% endif %}
+
+            <div class="container-fluid">
+                <div class="row d-flex">
+                <div class="col-md-12 col-lg-10 col-xl-8">
+                    <div class="card">
+                    
+                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                        <div class="d-flex flex-start w-100">
+                        <img class="rounded-circle shadow-1-strong me-3"
+                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                            height="40" />
+
+                        <form id='formdata' class="form-outline w-100" id='formdata' action="" method="post">
+                            {% csrf_token %}
+                            {{comment_form|crispy}}
+
+                            <div class="float-end mt-2 pt-1">
+                                <button class='btn btn-primary' type="submit">Comment</button>
+                            </div>
+                            
+                        </form>
+                        </div>
+                    </div>
+                    <div class="comments">
+                            {% for comment in comments %}
+                            <div class="card-body">
+                                <div class="d-flex flex-start align-items-center">
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                                    height="60" />
+                                <div>
+                                    <h6 class="fw-bold text-primary mb-1">
+                                        {{ comment.author }}
+                                    </h6>
+                                    <p class="text-muted small mb-0">
+                                    Shared publicly - Jan 2020
+                                    </p>
+                                </div>
+                                </div>
+                    
+                                <p class="mt-3 mb-4 pb-2">
+                                    {{comment.content}}
+                                </p>
+                    
+                                <div class="small d-flex justify-content-start">
+                                <a href="#!" class="d-flex align-items-center me-3">
+                                    <i class="far fa-thumbs-up me-2"></i>
+                                    <p class="mb-0">Like</p>
+                                </a>
+                                <a href="#!" class="d-flex align-items-center me-3">
+                                    <i class="far fa-comment-dots me-2"></i>
+                                    <p class="mb-0">Comment</p>
+                                </a>
+                                <a href="#!" class="d-flex align-items-center me-3">
+                                    <i class="fas fa-share me-2"></i>
+                                    <p class="mb-0">Share</p>
+                                </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </div>
+                    
+                    </div>
+                </div>
+                </div>
+            </div>
         {% endif %}
 
-        <form id='formdata' action="" method="post">
-            {% csrf_token %}
-            {{comment_form|crispy}}
-            <button class='btn btn-success' type="submit">Comment</button>
-        </form>
-        
-        <div class="comments">
-            {% for comment in comments %}
-                <p>{{ comment.author }} : {{comment.content}}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    </article>
+    </section>
 {% endblock content %}
 
     
@@ -43,7 +99,7 @@
         const commentForm = document.getElementById('formdata');
 
         const content = document.getElementById("id_content");
-        const Comments = document.querySelector('.comments');
+        const comments = document.querySelector('.comments');
 
 
         const url = `ws://${window.location.host}{{ post.get_absolute_url }}ws/socket-server/`;
@@ -55,9 +111,41 @@
             console.log('Data:',data);
 
             if(data.type === 'comment'){
-                const comment = document.createElement('p');
-                comment.textContent = data.message;
-                Comments.appendChild(comment);
+                const comment = document.createElement('div');
+                comment.innerHTML = `<div class="d-flex flex-start align-items-center">
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                                    height="60" />
+                                <div>
+                                    <h6 class="fw-bold text-primary mb-1">
+                                        ${data.username}
+                                    </h6>
+                                    <p class="text-muted small mb-0">
+                                    Shared publicly - Jan 2020
+                                    </p>
+                                </div>
+                                </div>
+                    
+                                <p class="mt-3 mb-4 pb-2">
+                                    ${data.message}
+                                </p>
+                    
+                                <div class="small d-flex justify-content-start">
+                                <a href="#!" class="d-flex align-items-center me-3">
+                                    <i class="far fa-thumbs-up me-2"></i>
+                                    <p class="mb-0">Like</p>
+                                </a>
+                                <a href="#!" class="d-flex align-items-center me-3">
+                                    <i class="far fa-comment-dots me-2"></i>
+                                    <p class="mb-0">Comment</p>
+                                </a>
+                                <a href="#!" class="d-flex align-items-center me-3">
+                                    <i class="fas fa-share me-2"></i>
+                                    <p class="mb-0">Share</p>
+                                </a>
+                                </div>` ;
+                comment.setAttribute("class","card-body");                
+                comments.appendChild(comment);
                 commentForm.reset()
                 
         }

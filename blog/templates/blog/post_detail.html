@@ -8,22 +8,36 @@
 
 
 {% block content %}
-    <section class="container">
+    <section class="container-fluid">
         {% if post %}
-            <h2>{{post.title}}</h2>
-            {{post.content.html | safe}}
-            <a class="img-fluid" href={{post.photo.image.url}}> <img src={{post.photo.image.url}} alt={{ post.photo.caption }}></a>
-            <p>Author: {{post.author}}</p>
 
-            {% get_obj_perms request.user for post as 'post_perms' %}
+            <div
+            class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+            style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
+            >
+                <h1 class="mb-3 h2">{{post.title}}</h1>
 
-            {% if 'change_post' in post_perms %}
-                <a href={% url 'post-edit-view' post.slug %}>Edit</a>
-            {% endif %}
+                <p>{{post.summary}}</p>
+            </div>
 
-            <div class="container-fluid">
+            <div class="container">
+                {{post.content.html | safe}}
+                <a  href={{post.photo.image.url}}>
+                    <img class="img-fluid" src={{post.photo.image.url}} alt={{ post.photo.caption }}>
+                </a>
+                <p>Author: {{post.author}}</p>
+
+                {% get_obj_perms request.user for post as 'post_perms' %}
+
+                {% if 'change_post' in post_perms %}
+                    <a href={% url 'post-edit-view' post.slug %}>Edit</a>
+                {% endif %}
+            </div>
+            
+
+            <div class="container">
                 <div class="row d-flex">
-                <div class="col-md-12 col-lg-10 col-xl-8">
+                <div class="col-md-12 col-lg-10 col-xl-12">
                     <div class="card">
                     
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
@@ -34,7 +48,7 @@
 
                         <form id='formdata' class="form-outline w-100" id='formdata' action="" method="post">
                             {% csrf_token %}
-                            {{comment_form|crispy}}
+                            {{comment_form}}
 
                             <div class="float-end mt-2 pt-1">
                                 <button class='btn btn-primary' type="submit">Comment</button>

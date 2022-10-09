@@ -160,6 +160,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.joinpath('media')
+
 #Guardian authorization backends
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', # default

@@ -20,7 +20,7 @@ def login_view(request):
             # set user backend to the default to avoid multiple authentication backends conflict
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request,user)
-            return redirect(reverse('home-view'))
+            return redirect(reverse('blog-home-view'))
 
         else:
             message = "Login failed"
@@ -52,7 +52,7 @@ def signup_view(request):
             # set user backend to the default to avoid multiple authentication backends conflict
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request,user)
-            return redirect(reverse('home-view'))
+            return redirect(reverse('blog-home-view'))
 
     return render(request,'accounts/signup.html',context={'form':form})
 

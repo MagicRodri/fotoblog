@@ -36,3 +36,5 @@ python manage.py runserver
 ### User sees only posts of thoses he is following
 ### Users can comment blog post in real time
 
+## Features to be added
+- [ ] Posts fetching from other sources

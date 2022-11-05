@@ -26,7 +26,7 @@
                         </div>
                         <ul class="profile-header-tab nav nav-tabs nav-tabs-v2">
                             <li class="nav-item">
-                                <a class="nav-link"data-bs-toggle="collapse" data-bs-parent="profile-followers" href="#post-list" aria-expanded="false" aria-controls="post-list">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#post-list" data-bs-parent="#collapsibles" aria-expanded="false" aria-controls="post-list">
                                     <div class="nav-field">Posts</div>
                                     <div class="nav-value">382</div>
                                 </a>
@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="tab-content p-0">
-                                    <div class="">
+                                    <div id="collapsibles">
                                         <div class="collapse list-group" id="following-list">
                                             {% for follow in profile_user.follows.all %}
                                                 <div class="list-group-item d-flex align-items-center">

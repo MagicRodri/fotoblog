@@ -1,14 +1,15 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.urls import reverse
-from .utils import set_user_group,set_profile_edit_permission
+from django.db import models
 from django.db.models.signals import post_save
+from django.urls import reverse
+
+from .utils import set_profile_edit_permission, set_user_group
 
 
 # Create your models here.
 class User(AbstractUser):
     USER_PICTURES_PATH = 'users'
-    DEFAULT_PICTURE= '/media/' + USER_PICTURES_PATH +  '/' + 'default.jpg'
+    DEFAULT_PICTURE= 'users/default.jpg'
 
 
     CREATOR = "CREATOR"
@@ -18,7 +19,7 @@ class User(AbstractUser):
         (CREATOR, "Creator"),
         (SUBSCRIBER, "Subscriber")
     ]
-    picture = models.ImageField(upload_to = USER_PICTURES_PATH,blank = True, null = True)
+    picture = models.ImageField(upload_to = USER_PICTURES_PATH,default = DEFAULT_PICTURE,blank = True)
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, default = SUBSCRIBER)
     follows = models.ManyToManyField(
         'self',

@@ -11,6 +11,7 @@
 {% block content %}
 
         {% if request.user.is_authenticated %}
+        {% get_obj_perms request.user for profile_user as 'online_user_perms' %}
         <div class="container">
             <div class="profile">
                 <div class="profile-header">
@@ -25,14 +26,14 @@
                         </div>
                         <ul class="profile-header-tab nav nav-tabs nav-tabs-v2">
                             <li class="nav-item">
-                                <a href="#profile-post" class="nav-link" data-toggle="tab">
+                                <a class="nav-link"data-bs-toggle="collapse" data-bs-parent="profile-followers" href="#post-list" aria-expanded="false" aria-controls="post-list">
                                     <div class="nav-field">Posts</div>
                                     <div class="nav-value">382</div>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#profile-followers" class="nav-link active" data-toggle="tab">
-                                    <div class="nav-field">Followers</div>
+                                <a class="nav-link active" data-bs-toggle="collapse" href="#following-list" aria-expanded="false" aria-controls="following-list">
+                                    <div class="nav-field">Following</div>
                                     <div class="nav-value">1.3m</div>
                                 </a>
                             </li>
@@ -56,6 +57,12 @@
                             </p>
                             <div class="mb-1"><i class="fa fa-map-marker-alt fa-fw text-muted"></i> New York, NY</div>
                             <div class="mb-3"><i class="fa fa-link fa-fw text-muted"></i> seantheme.com/studio</div>
+                            <div class="mb-1">
+                                {% if 'change_user' in online_user_perms %}
+                                    <a href={% url 'edit-profile-view' %} class="btn btn-primary">Edit</a>
+                                    <a href={% url 'upload-pp-view' %} class="btn btn-primary">Change photo</a>
+                                {% endif %}
+                            </div>
                             <hr class="mt-4 mb-4" />
                         </div>
                     </div>
@@ -64,12 +71,11 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="tab-content p-0">
-                                    <div class="tab-pane fade active show" id="profile-followers">
-                                        <div class="list-group">
-                                            {% get_obj_perms request.user for profile_user as 'online_user_perms' %}
+                                    <div class="">
+                                        <div class="collapse list-group" id="following-list">
                                             {% for follow in profile_user.follows.all %}
                                                 <div class="list-group-item d-flex align-items-center">
-                                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" width="50px" class="rounded-sm ml-n2" />
+                                                    <img src={{follow.picture.url}} alt="" width="50px" class="rounded-sm ml-n2" />
                                                     <div class="flex-fill pl-3 pr-3">
                                                         <div>
                                                             <a href={{ follow.get_absolute_url }} class="text-dark font-weight-600">{{follow}}</a>
@@ -80,6 +86,19 @@
                                                     {% endif %}
                                                 </div>
                                             {% endfor %}  
+                                        </div>
+                                        <div class="collapse list-group" id="post-list">
+                                            <div class="list-group-item d-flex align-items-center">
+                                                {% for post in posts %}
+                                                    <img src={{post.photo.image.url}} alt="" width="50px" class="rounded-sm ml-n2" />
+                                                    <div class="flex-fill pl-3 pr-3">
+                                                        <div>
+                                                            <p class="text-dark font-weight-600">{{post.title}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <a href={{post.get_absolute_url}} class="btn btn-outline-primary">Read</a>
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                         <div class="text-center p-3">
                                             <a href="#" class="text-dark text-decoration-none">Show more <b class="caret"></b></a>
@@ -92,37 +111,6 @@
                 </div>
             </div>
         </div>
-
-            <h2>Posts</h2> 
-            <div>
-                {% for post in posts %}
-                    {% include 'blog/partials/post_snippet.html' %}
-                {% endfor %}
-            </div>
-
-            
-            <div>
-                <h2>Following:</h2>
-                <ul>
-                    {% for follow in profile_user.follows.all %}
-                        <li>
-                            <a href={{ follow.get_absolute_url }}>{{follow}}</a>
-                            {% if 'change_user' in online_user_perms %}
-                                <a href={% url 'unfollow' follow.username %}>Unfollow</a>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div>
-    
-                {% if 'change_user' in online_user_perms %}
-                    <a href={% url 'edit-profile-view' %}>Edit profile</a> <br>
-                    <a href={% url 'upload-pp-view' %}>Upload profile photo</a>
-                {% endif %}
-                
-            </div>
         
         {% endif %}
     

@@ -43,7 +43,7 @@
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
                         <div class="d-flex flex-start w-100">
                         <img class="rounded-circle shadow-1-strong me-3"
-                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                            src={{request.user.picture.url}} alt="avatar" width="40"
                             height="40" />
 
                         <form id='formdata' class="form-outline w-100" id='formdata' action="" method="post">
@@ -62,12 +62,12 @@
                             <div class="card-body">
                                 <div class="d-flex flex-start align-items-center">
                                 <img class="rounded-circle shadow-1-strong me-3"
-                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                                    src={{ comment.author.picture.url }} alt="avatar" width="60"
                                     height="60" />
                                 <div>
-                                    <h6 class="fw-bold text-primary mb-1">
+                                    <a href={{comment.author.get_absolute_url}} class="fw-bold text-primary mb-1">
                                         {{ comment.author }}
-                                    </h6>
+                                    </a>
                                     <p class="text-muted small mb-0">
                                     Shared publicly - Jan 2020
                                     </p>

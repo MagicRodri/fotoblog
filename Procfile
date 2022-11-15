@@ -1,0 +1,1 @@
+web: python manage.py migrate && daphne fotoblog.asgi:application

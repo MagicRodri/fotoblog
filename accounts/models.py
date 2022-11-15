@@ -46,16 +46,16 @@ class User(AbstractUser):
 
         super().save(*args,**kargs)
         # On creation assign user to the appropriate group
-        # set_user_group(self)
+        set_user_group(self)
 
 
     def get_absolute_url(self):
         return reverse("profile-view",kwargs={'username':self.username})
        
 
-# def user_post_save(instance,sender,created,*args, **kwargs):
+def user_post_save(instance,sender,created,*args, **kwargs):
     
-#     if created:
-#         set_profile_edit_permission(instance)
+    if created:
+        set_profile_edit_permission(instance)
 
-# post_save.connect(user_post_save,sender=User)
+post_save.connect(user_post_save,sender=User)

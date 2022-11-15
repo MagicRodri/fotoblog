@@ -53,9 +53,9 @@ class User(AbstractUser):
         return reverse("profile-view",kwargs={'username':self.username})
        
 
-def user_post_save(instance,sender,created,*args, **kwargs):
+# def user_post_save(instance,sender,created,*args, **kwargs):
     
-    if created:
-        set_profile_edit_permission(instance)
+#     if created:
+#         set_profile_edit_permission(instance)
 
-post_save.connect(user_post_save,sender=User)
+# post_save.connect(user_post_save,sender=User)

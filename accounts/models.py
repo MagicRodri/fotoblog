@@ -46,7 +46,7 @@ class User(AbstractUser):
 
         super().save(*args,**kargs)
         # On creation assign user to the appropriate group
-        set_user_group(self)
+        # set_user_group(self)
 
 
     def get_absolute_url(self):

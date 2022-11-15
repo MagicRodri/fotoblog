@@ -166,3 +166,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', # default
     'guardian.backends.ObjectPermissionBackend',
 )
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://fotoblog-production.up.railway.app/'
+]

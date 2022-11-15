@@ -1,0 +1,29 @@
+:root{
+    --blog-blue-1 : #2691d9;
+
+    --blog-white-1 : #edf0f1;
+
+    --login-gradient-1 : linear-gradient(120deg,var(--blog-blue-1), #8e44ad);
+    --login-silver-1 : silver;
+    --login-silver-2 : #adadad;
+    --login-silver-3 :#666666;
+
+    --failure : rgb(151, 48, 48);
+}
+
+body{
+    max-height: 100vh;
+}
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+    }
+    
+    @media (min-width: 1025px) {
+    .h-custom-2 {
+    height: 100%;
+    }
+    }

@@ -1,1 +1,1 @@
-web: python manage.py migrate && daphne -b 0.0.0.0 -p $PORT fotoblog.asgi:application
+web: pip install --upgrade pip && python manage.py migrate && daphne -b 0.0.0.0 -p $PORT fotoblog.asgi:application

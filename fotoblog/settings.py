@@ -168,5 +168,5 @@ AUTHENTICATION_BACKENDS = (
 )
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://fotoblog-production.up.railway.app/'
+    'https://fotoblog-production.up.railway.app'
 ]

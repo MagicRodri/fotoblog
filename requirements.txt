@@ -31,4 +31,5 @@ Twisted==22.8.0
 txaio==22.2.1
 typing_extensions==4.3.0
 tzdata==2022.6
+whitenoise==6.2.0
 zope.interface==5.4.0

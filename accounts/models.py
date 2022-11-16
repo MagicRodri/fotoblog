@@ -9,7 +9,7 @@ from .utils import set_profile_edit_permission, set_user_group
 # Create your models here.
 class User(AbstractUser):
     USER_PICTURES_PATH = 'users'
-    DEFAULT_PICTURE= 'users/default.jpg' #from cloudinary
+    DEFAULT_PICTURE= 'users/default_vewfrq.jpg' #from cloudinary
 
 
     CREATOR = "CREATOR"

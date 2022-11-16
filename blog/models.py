@@ -1,17 +1,17 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
+from django.db.models.signals import post_save, pre_save
 from django.urls import reverse
-from django.db.models.signals import pre_save,post_save
+from django_quill.fields import QuillField
+from PIL import Image
 
 from .utils import (
-    slugify_instance_title,
-    set_words_count,
+    set_photo_change_and_delete_permission,
     set_post_change_and_delete_permission,
-    set_photo_change_and_delete_permission
-    )
+    set_words_count,
+    slugify_instance_title,
+)
 
-from PIL import Image
-from django_quill.fields import QuillField
 # Create your models here.
 User = get_user_model()
 
@@ -32,8 +32,8 @@ class Photo(models.Model):
 
     def save(self,*args,**kargs):
 
-        if self.image:
-            self.resize_image()
+        # if self.image:
+        #     self.resize_image()
         super().save(*args,**kargs)
         
 

@@ -31,6 +31,11 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+<<<<<<< HEAD
+=======
+    padding: 0 3rem;
+    align-items: center;
+>>>>>>> accounts
     max-height: max(6vh,4rem);
 }
 
@@ -45,7 +50,10 @@ header{
     display: flex;
     justify-content: space-between;
     gap: 8px;
+<<<<<<< HEAD
     margin-inline-end: 4rem;
+=======
+>>>>>>> accounts
 }
 
 .nav-item a {
@@ -64,7 +72,10 @@ header{
 .hamburger{
     display: none;
     cursor: pointer;
+<<<<<<< HEAD
     margin-inline-end: 4rem;
+=======
+>>>>>>> accounts
 }
 
 .bar{

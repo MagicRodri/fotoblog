@@ -24,10 +24,9 @@ import blog.urls
 from .views import home_view
 
 urlpatterns = [
-    path('',home_view,name='home-view'),
+    path('',include(blog.urls)),
     path('accounts/',include(accounts.urls)),
     path('admin/', admin.site.urls),
-    path('blog/',include(blog.urls)),
 ]
 
 if settings.DEBUG :

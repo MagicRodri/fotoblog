@@ -20,7 +20,6 @@ class User(AbstractUser):
         (SUBSCRIBER, "Subscriber")
     ]
     picture = models.ImageField(upload_to = USER_PICTURES_PATH,default = DEFAULT_PICTURE,blank = True)
-    role = models.CharField(max_length=30, choices=ROLE_CHOICES, default = SUBSCRIBER)
     follows = models.ManyToManyField(
         'self',
         limit_choices_to={'role':CREATOR},

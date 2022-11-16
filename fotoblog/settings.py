@@ -15,6 +15,7 @@ from pathlib import Path
 
 import dj_database_url
 import dotenv
+import whitenoise
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -71,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     'whitenoise.middleware.WhiteNoiseMiddleware', # 3rd party
-    
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

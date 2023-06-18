@@ -53,10 +53,10 @@
                             <h4>{{profile_user.username}}</h4>
                             <div class="font-weight-600 mb-3 text-muted mt-n2">@{{profile_user.username}}</div>
                             <p>
-                                Principal UXUI Design &amp; Brand Architecture for Studio. Creator of SeanTheme. Bringing the world closer together. Studied Computer Science and Psychology at Harvard University.
+                                {{profile_user.description}}
                             </p>
-                            <div class="mb-1"><i class="fa fa-map-marker-alt fa-fw text-muted"></i> New York, NY</div>
-                            <div class="mb-3"><i class="fa fa-link fa-fw text-muted"></i> seantheme.com/studio</div>
+                            <div class="mb-1"><i class="fa fa-map-marker-alt fa-fw text-muted"></i>{{profile_user.location}}</div>
+                            <div class="mb-3"><i class="fa fa-link fa-fw text-muted"></i><a href={{profile_user.website}}>{{profile_user.website}}</a> </div>
                             <div class="mb-1">
                                 {% if 'change_user' in online_user_perms %}
                                     <a href={% url 'edit-profile-view' %} class="btn btn-primary">Edit</a>

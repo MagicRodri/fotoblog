@@ -62,18 +62,18 @@
         </div>
       </header> 
 
-
-    {% block login %}
+      <main class='min-vh-100 container-fluid'>
     
-    {% endblock login %}   
-    <main class='container-fluid'>
+        {% block login %}
+        
+        {% endblock login %} 
         {% block content %}
     
         {% endblock content %}
     </main>
 
-    <footer style="position:fixed;left:0;bottom:0;width:100%;background-color:white;" >
-      <div style="position:sticky" class="d-flex flex-column align-items-center justify-content-start">
+    <footer class="text-center bg-dark text-light" >
+      <div style="position:sticky" class="d-flex flex-column align-items-center">
           <p>&copy; Fotoblog </p>
           <p>No rights reserved</p>
       </div>

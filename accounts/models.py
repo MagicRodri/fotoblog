@@ -21,6 +21,9 @@ class User(AbstractUser):
     ]
     picture = models.ImageField(upload_to = USER_PICTURES_PATH,default = DEFAULT_PICTURE,blank = True)
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, default = SUBSCRIBER)
+    description = models.TextField(default='Empty description')
+    location = models.CharField(max_length=128, default='Location not provided')
+    website = models.URLField(blank=True)
     follows = models.ManyToManyField(
         'self',
         limit_choices_to={'role':CREATOR},
